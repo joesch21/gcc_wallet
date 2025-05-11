@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { stripeCheckout } from './stripeHandler'
 import { createWalletFromBackend } from './wallet'
 import Login from './Login'
-import './styles.css'
+import './App.css'
 
 function App() {
   const [wallet, setWallet] = useState(null)
@@ -27,14 +27,11 @@ function App() {
     window.location.href = session.url
   }
 
-  if (!userToken) {
-    return <Login onLogin={handleLogin} />
-  }
+  if (!userToken) return <Login onLogin={handleLogin} />
 
   return (
     <div className="container">
       <h1>GCC Membership NFT</h1>
-
       {wallet && (
         <>
           <div className="wallet-info">Wallet: <code>{wallet.address}</code></div>
@@ -43,7 +40,6 @@ function App() {
           </button>
         </>
       )}
-
       <p className="status">{status}</p>
     </div>
   )
