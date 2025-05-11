@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+}
+
+.button.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.button.secondary {
+  background-color: #28a745;
+  color: white;
+}
+
+.status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.wallet-info {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  word-break: break-all;
+}
