@@ -1,6 +1,7 @@
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 export const stripeCheckout = async (walletAddress) => {
-  // Replace this with your actual backend endpoint
-  const response = await fetch('http://localhost:5000/create-checkout-session', {
+  const response = await fetch(`${backendUrl}/create-checkout-session`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ walletAddress }),
