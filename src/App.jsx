@@ -1,48 +1,16 @@
-import { useState } from 'react'
-import { stripeCheckout } from './stripeHandler'
-import { createWalletFromBackend } from './wallet'
-import Login from './Login'
+// App.jsx
+import { Routes, Route } from 'react-router-dom'
+import Home from './Home'
+import Success from './Success'
+import Cancel from './Cancel' // Optional: create this file
 import './App.css'
 
-function App() {
-  const [wallet, setWallet] = useState(null)
-  const [status, setStatus] = useState('')
-  const [userToken, setUserToken] = useState(null)
-
-  const handleLogin = async (token) => {
-    setUserToken(token)
-    setStatus('Requesting wallet...')
-    const newWallet = await createWalletFromBackend(token)
-    setWallet(newWallet)
-  }
-
-  const handleBuyMembership = async () => {
-    if (!wallet) {
-      setStatus('Please create a wallet first.')
-      return
-    }
-
-    setStatus('Processing payment...')
-    const session = await stripeCheckout(wallet.address)
-    window.location.href = session.url
-  }
-
-  if (!userToken) return <Login onLogin={handleLogin} />
-
+export default function App() {
   return (
-    <div className="container">
-      <h1>GCC Membership NFT</h1>
-      {wallet && (
-        <>
-          <div className="wallet-info">Wallet: <code>{wallet.address}</code></div>
-          <button onClick={handleBuyMembership} className="button secondary">
-            Buy Membership NFT
-          </button>
-        </>
-      )}
-      <p className="status">{status}</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
+    </Routes>
   )
 }
-
-export default App
