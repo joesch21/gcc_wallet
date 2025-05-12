@@ -1,7 +1,7 @@
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 export const createWalletFromBackend = async (token) => {
-  const response = await fetch(`${backendUrl}/create-wallet`, {
+  const response = await fetch(`${backendUrl}/create_wallet`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

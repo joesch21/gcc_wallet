@@ -2,9 +2,9 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 export const stripeCheckout = async (walletAddress) => {
   console.log('📡 Calling backend with wallet:', walletAddress)
-  console.log('🌐 Backend URL:', `${backendUrl}/create-checkout-session`)
+  console.log('🌐 Backend URL:', `${backendUrl}/create_checkout_session`)
 
-  const response = await fetch(`${backendUrl}/create-checkout-session`, {
+  const response = await fetch(`${backendUrl}/create_checkout_session`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
