@@ -9,6 +9,10 @@ export const createWalletFromBackend = async (token) => {
     },
   })
 
-  if (!response.ok) throw new Error('Wallet creation failed')
+  if (!response.ok) {
+    console.error('❌ Wallet creation failed with status', response.status)
+    throw new Error('Wallet creation failed')
+  }
+
   return await response.json()
 }
