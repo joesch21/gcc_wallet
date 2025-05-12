@@ -1,4 +1,4 @@
-// src/Membership.jsx
+// File: src/Membership.jsx
 import { useLocation, useNavigate } from 'react-router-dom'
 import { auth } from './firebase'
 import { signOut } from 'firebase/auth'

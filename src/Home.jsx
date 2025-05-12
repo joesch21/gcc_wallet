@@ -1,4 +1,4 @@
-// Home.jsx
+// File: src/Home.jsx
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { stripeCheckout } from './stripeHandler'

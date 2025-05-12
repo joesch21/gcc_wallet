@@ -1,3 +1,4 @@
+// File: src/Login.jsx
 import { useState } from 'react'
 import {
   signInWithEmailAndPassword,
@@ -19,11 +20,24 @@ export default function Login({ onLogin }) {
       let userCredential
 
       if (isRegister) {
-        userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email.trim(),
-          password
-        )
+        try {
+          userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email.trim(),
+            password
+          )
+        } catch (err) {
+          if (err.code === 'auth/email-already-in-use') {
+            setStatus('🔁 Email already registered. Logging in...')
+            userCredential = await signInWithEmailAndPassword(
+              auth,
+              email.trim(),
+              password
+            )
+          } else {
+            throw err
+          }
+        }
       } else {
         userCredential = await signInWithEmailAndPassword(
           auth,
@@ -39,10 +53,6 @@ export default function Login({ onLogin }) {
       console.error(err)
 
       switch (err.code) {
-        case 'auth/email-already-in-use':
-          setStatus('⚠️ Email already registered. Switching to login...')
-          setIsRegister(false)
-          break
         case 'auth/user-not-found':
           setStatus('⚠️ No account found. Try registering instead.')
           break
