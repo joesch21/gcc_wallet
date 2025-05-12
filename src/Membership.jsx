@@ -15,6 +15,25 @@ export default function Membership() {
     return null
   }
 
+  const handleTestTransaction = async () => {
+  try {
+    const token = await auth.currentUser.getIdToken()
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/test_transaction`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await res.json()
+    alert(`✅ ${data.message}`)
+  } catch (err) {
+    console.error('❌ Test transaction failed:', err)
+    alert('❌ Test failed. Check console or try again.')
+  }
+}
+
+
   const handleLogout = async () => {
     await signOut(auth)
     navigate('/')
