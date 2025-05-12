@@ -4,6 +4,8 @@ import Home from './Home'
 import Success from './Success'
 import Cancel from './Cancel' // Optional: create this file
 import './App.css'
+import Membership from './Membership'
+
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/success" element={<Success />} />
       <Route path="/cancel" element={<Cancel />} />
+      <Route path="/membership" element={<Membership />} />
     </Routes>
   )
 }
