@@ -12,6 +12,7 @@ export default function Membership() {
   const [wallet, setWallet] = useState(location.state?.wallet || null)
   const [loading, setLoading] = useState(!wallet)
   const [purchased, setPurchased] = useState(false)
+  const [selectedTokenId, setSelectedTokenId] = useState(null)
 
   useEffect(() => {
     const fetchWallet = async () => {
@@ -79,7 +80,7 @@ export default function Membership() {
 
   const handleBuyNFT = async () => {
     try {
-      const result = await stripeCheckout(wallet)
+      const result = await stripeCheckout(wallet, selectedTokenId)
       window.location.href = result.url
     } catch (err) {
       console.error('❌ Checkout failed:', err)
@@ -103,28 +104,47 @@ export default function Membership() {
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
       <div className="nft-gallery">
-        <div className="nft-card compact">
-          <img src="/nft0.png" alt="NFT Token 0" className="nft-image" />
-          <button className="button primary" onClick={() => handleSendNFT(0)} disabled={!purchased}>
-            Send NFT #0
-          </button>
-        </div>
-        <div className="nft-card compact">
-          <img src="/nft1.png" alt="NFT Token 1" className="nft-image" />
-          <button className="button primary" onClick={() => handleSendNFT(1)} disabled={!purchased}>
-            Send NFT #1
-          </button>
-        </div>
+        {[0, 1].map((id) => (
+          <div key={id} className="nft-card compact">
+            <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
+            <button
+              className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
+              onClick={() => setSelectedTokenId(id)}
+            >
+              {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
+            </button>
+          </div>
+        ))}
       </div>
 
       <div className="button-group">
-        <button className="button primary" onClick={handleBuyNFT}>
-          💳 Buy NFT via Stripe
+        <button
+          className="button primary"
+          disabled={selectedTokenId === null}
+          onClick={handleBuyNFT}
+        >
+          💳 Buy Selected NFT
         </button>
         <button className="button secondary" onClick={handleLogout}>
           Log out
         </button>
       </div>
+
+      {purchased && (
+        <div className="button-group">
+          <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
+          {[0, 1].map((id) => (
+            <button
+              key={id}
+              className="button primary"
+              onClick={() => handleSendNFT(id)}
+              disabled={!purchased}
+            >
+              Send NFT #{id}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
