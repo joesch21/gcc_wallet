@@ -108,3 +108,19 @@ code {
 .button-group {
   margin-top: 2rem;
 }
+
+.nft-action-button {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nft-action-button:hover {
+  background-color: #218838;
+}
