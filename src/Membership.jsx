@@ -11,6 +11,7 @@ export default function Membership() {
   const navigate = useNavigate()
   const [wallet, setWallet] = useState(location.state?.wallet || null)
   const [loading, setLoading] = useState(!wallet)
+  const [purchased, setPurchased] = useState(false)
 
   useEffect(() => {
     const fetchWallet = async () => {
@@ -35,6 +36,27 @@ export default function Membership() {
 
     if (!wallet) fetchWallet()
   }, [wallet, navigate])
+
+  useEffect(() => {
+    const checkPurchase = async () => {
+      try {
+        const token = await auth.currentUser.getIdToken()
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/check_purchase`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        const data = await res.json()
+        setPurchased(data.purchased)
+      } catch (err) {
+        console.error('Failed to check purchase status:', err)
+      }
+    }
+
+    if (wallet) checkPurchase()
+  }, [wallet])
 
   const handleSendNFT = async (tokenId) => {
     try {
@@ -83,13 +105,13 @@ export default function Membership() {
       <div className="nft-gallery">
         <div className="nft-card compact">
           <img src="/nft0.png" alt="NFT Token 0" className="nft-image" />
-          <button className="button primary" onClick={() => handleSendNFT(0)}>
+          <button className="button primary" onClick={() => handleSendNFT(0)} disabled={!purchased}>
             Send NFT #0
           </button>
         </div>
         <div className="nft-card compact">
           <img src="/nft1.png" alt="NFT Token 1" className="nft-image" />
-          <button className="button primary" onClick={() => handleSendNFT(1)}>
+          <button className="button primary" onClick={() => handleSendNFT(1)} disabled={!purchased}>
             Send NFT #1
           </button>
         </div>
