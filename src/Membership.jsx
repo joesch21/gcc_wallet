@@ -38,7 +38,7 @@ export default function Membership() {
   const handleSendNFT = async (tokenId) => {
     try {
       const token = await auth.currentUser.getIdToken()
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/test_transaction`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/send_nft`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
