@@ -55,3 +55,56 @@ code {
 .test-button-group .button {
   margin-right: 0.5rem;
 }
+
+/* NFT styling */
+.membership-container {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.wallet-address {
+  background-color: #f0f0f0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+.nft-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.nft-card.compact {
+  background: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 220px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nft-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.button-group {
+  margin-top: 2rem;
+}

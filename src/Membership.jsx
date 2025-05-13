@@ -70,13 +70,13 @@ export default function Membership() {
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
       <div className="nft-gallery">
-        <div className="nft-card">
+        <div className="nft-card compact">
           <img src="/nft0.png" alt="NFT Token 0" className="nft-image" />
           <button className="button primary" onClick={() => handleSendNFT(0)}>
             Send NFT #0
           </button>
         </div>
-        <div className="nft-card">
+        <div className="nft-card compact">
           <img src="/nft1.png" alt="NFT Token 1" className="nft-image" />
           <button className="button primary" onClick={() => handleSendNFT(1)}>
             Send NFT #1
