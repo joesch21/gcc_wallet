@@ -35,7 +35,7 @@ export default function Membership() {
     if (!wallet) fetchWallet()
   }, [wallet, navigate])
 
-  const handleTestTransaction = async () => {
+  const handleSendNFT = async (tokenId) => {
     try {
       const token = await auth.currentUser.getIdToken()
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/test_transaction`, {
@@ -44,12 +44,13 @@ export default function Membership() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ tokenId }),
       })
       const data = await res.json()
       alert(`✅ ${data.message}`)
     } catch (err) {
-      console.error('❌ Test transaction failed:', err)
-      alert('❌ Test failed. Check console or try again.')
+      console.error('❌ NFT send failed:', err)
+      alert('❌ Failed to send NFT. Check console or try again.')
     }
   }
 
@@ -68,10 +69,22 @@ export default function Membership() {
 
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
+      <div className="nft-gallery">
+        <div className="nft-card">
+          <img src="/nft0.png" alt="NFT Token 0" className="nft-image" />
+          <button className="button primary" onClick={() => handleSendNFT(0)}>
+            Send NFT #0
+          </button>
+        </div>
+        <div className="nft-card">
+          <img src="/nft1.png" alt="NFT Token 1" className="nft-image" />
+          <button className="button primary" onClick={() => handleSendNFT(1)}>
+            Send NFT #1
+          </button>
+        </div>
+      </div>
+
       <div className="button-group">
-        <button className="button primary" onClick={handleTestTransaction}>
-          🔁 Trigger Test Transaction
-        </button>
         <button className="button secondary" onClick={handleLogout}>
           Log out
         </button>
