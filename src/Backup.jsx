@@ -1,15 +1,25 @@
 // File: src/Backup.jsx
 import { useLocation, useNavigate } from 'react-router-dom'
 import './Membership.css'
+import { useEffect, useState } from 'react'
 
 export default function Backup() {
   const location = useLocation()
   const navigate = useNavigate()
   const wallet = location.state?.wallet
   const mnemonic = location.state?.mnemonic
+  const [acknowledged, setAcknowledged] = useState(false)
+
+  useEffect(() => {
+    if (!wallet || !mnemonic) {
+      console.warn('Missing wallet or mnemonic in navigation state')
+    }
+  }, [wallet, mnemonic])
 
   const handleAcknowledge = () => {
-    navigate('/membership', { state: { wallet } })
+    if (acknowledged) {
+      navigate('/membership', { state: { wallet } })
+    }
   }
 
   if (!wallet || !mnemonic) {
@@ -26,9 +36,7 @@ export default function Backup() {
         <input
           type="checkbox"
           id="acknowledge"
-          onChange={(e) => {
-            document.getElementById('continue').disabled = !e.target.checked
-          }}
+          onChange={(e) => setAcknowledged(e.target.checked)}
         />
         I understand this is the <strong>only way</strong> to recover my wallet.
       </label>
@@ -37,7 +45,7 @@ export default function Backup() {
         id="continue"
         className="button primary"
         onClick={handleAcknowledge}
-        disabled
+        disabled={!acknowledged}
         style={{ marginTop: '1.5rem' }}
       >
         Continue to Membership
