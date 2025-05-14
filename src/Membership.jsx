@@ -13,6 +13,8 @@ export default function Membership() {
   const [loading, setLoading] = useState(!wallet)
   const [purchased, setPurchased] = useState(false)
   const [selectedTokenId, setSelectedTokenId] = useState(null)
+  const [mnemonic, setMnemonic] = useState(null)
+  const [acknowledged, setAcknowledged] = useState(false)
 
   useEffect(() => {
     const fetchWallet = async () => {
@@ -27,6 +29,10 @@ export default function Membership() {
         })
         const data = await res.json()
         setWallet(data.address)
+
+        if (data.mnemonic) {
+          setMnemonic(data.mnemonic)
+        }
       } catch (err) {
         console.error('Failed to fetch wallet:', err)
         navigate('/')
@@ -94,6 +100,24 @@ export default function Membership() {
   }
 
   if (loading) return <div className="container">Loading membership data...</div>
+
+  // 🔐 Show mnemonic backup flow first, only once
+  if (mnemonic && !acknowledged) {
+    return (
+      <div className="container">
+        <h2>🔐 Backup Your Wallet</h2>
+        <p>This is your wallet's recovery phrase (mnemonic). Write it down and store it securely. If you lose this, you lose access to your NFT and tokens.</p>
+        <pre className="mnemonic-display">{mnemonic}</pre>
+        <p style={{ fontSize: '0.9rem', color: 'darkred' }}>
+          Do not share this phrase with anyone. Anyone with it can access your wallet.
+        </p>
+        <label>
+          <input type="checkbox" onChange={() => setAcknowledged(true)} />
+          &nbsp; I have securely saved my recovery phrase and understand the risk.
+        </label>
+      </div>
+    )
+  }
 
   return (
     <div className="membership-container">

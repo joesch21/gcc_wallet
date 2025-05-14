@@ -124,3 +124,14 @@ code {
 .nft-action-button:hover {
   background-color: #218838;
 }
+
+.mnemonic-display {
+  background: #fef7e0;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
