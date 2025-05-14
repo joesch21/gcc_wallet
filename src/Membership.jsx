@@ -1,67 +1,86 @@
-// File: src/Membership.jsx
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { auth } from './firebase'
-import { signOut } from 'firebase/auth'
-import './Membership.css'
-import { stripeCheckout } from './stripeHandler'
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { auth } from './firebase';
+import { signOut } from 'firebase/auth';
+import './Membership.css';
+import { stripeCheckout } from './stripeHandler';
 
 export default function Membership() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [wallet, setWallet] = useState(location.state?.wallet || null)
-  const [loading, setLoading] = useState(!wallet)
-  const [purchased, setPurchased] = useState(false)
-  const [selectedTokenId, setSelectedTokenId] = useState(null)
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const [wallet, setWallet] = useState(location.state?.wallet || null);
+  const [loading, setLoading] = useState(!wallet);
+  const [purchased, setPurchased] = useState(false);
+  const [selectedTokenId, setSelectedTokenId] = useState(null);
+  const [availability, setAvailability] = useState({});
+
+  // ✅ Fetch wallet on mount
   useEffect(() => {
     const fetchWallet = async () => {
       try {
-        const token = await auth.currentUser.getIdToken()
+        const token = await auth.currentUser.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/create_wallet`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-        })
-        const data = await res.json()
-        setWallet(data.address)
+        });
+        const data = await res.json();
+        setWallet(data.address);
       } catch (err) {
-        console.error('Failed to fetch wallet:', err)
-        navigate('/')
+        console.error('Failed to fetch wallet:', err);
+        navigate('/');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    if (!wallet) fetchWallet()
-  }, [wallet, navigate])
+    if (!wallet) fetchWallet();
+  }, [wallet, navigate]);
 
+  // ✅ Check if user already purchased
   useEffect(() => {
     const checkPurchase = async () => {
       try {
-        const token = await auth.currentUser.getIdToken()
+        const token = await auth.currentUser.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/check_purchase`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-        })
-        const data = await res.json()
-        setPurchased(data.purchased)
+        });
+        const data = await res.json();
+        setPurchased(data.purchased);
       } catch (err) {
-        console.error('Failed to check purchase status:', err)
+        console.error('Failed to check purchase status:', err);
       }
-    }
+    };
 
-    if (wallet) checkPurchase()
-  }, [wallet])
+    if (wallet) checkPurchase();
+  }, [wallet]);
 
+  // ✅ Fetch NFT availability
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/available_nfts`);
+        const data = await res.json();
+        setAvailability(data);
+      } catch (err) {
+        console.error('❌ Failed to fetch availability:', err);
+      }
+    };
+
+    fetchAvailability();
+  }, []);
+
+  // ✅ Send NFT
   const handleSendNFT = async (tokenId) => {
     try {
-      const token = await auth.currentUser.getIdToken()
+      const token = await auth.currentUser.getIdToken();
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/send_nft`, {
         method: 'POST',
         headers: {
@@ -69,31 +88,33 @@ export default function Membership() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ tokenId }),
-      })
-      const data = await res.json()
-      alert(`✅ ${data.message}`)
+      });
+      const data = await res.json();
+      alert(`✅ ${data.message}`);
     } catch (err) {
-      console.error('❌ NFT send failed:', err)
-      alert('❌ Failed to send NFT. Check console or try again.')
+      console.error('❌ NFT send failed:', err);
+      alert('❌ Failed to send NFT. Check console or try again.');
     }
-  }
+  };
 
+  // ✅ Buy NFT
   const handleBuyNFT = async () => {
     try {
-      const result = await stripeCheckout(wallet, selectedTokenId)
-      window.location.href = result.url
+      const result = await stripeCheckout(wallet, selectedTokenId);
+      window.location.href = result.url;
     } catch (err) {
-      console.error('❌ Checkout failed:', err)
-      alert('❌ Failed to start checkout session')
+      console.error('❌ Checkout failed:', err);
+      alert('❌ Failed to start checkout session');
     }
-  }
+  };
 
+  // ✅ Logout
   const handleLogout = async () => {
-    await signOut(auth)
-    navigate('/')
-  }
+    await signOut(auth);
+    navigate('/');
+  };
 
-  if (loading) return <div className="container">Loading membership data...</div>
+  if (loading) return <div className="container">Loading membership data...</div>;
 
   return (
     <div className="membership-container">
@@ -104,23 +125,33 @@ export default function Membership() {
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
       <div className="nft-gallery">
-        {[1, 2].map((id) => (
-          <div key={id} className="nft-card compact">
-            <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
-            <button
-              className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
-              onClick={() => setSelectedTokenId(id)}
-            >
-              {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
-            </button>
-          </div>
-        ))}
+        {[1, 2].map((id) => {
+          const isAvailable = availability[id];
+
+          return (
+            <div key={id} className="nft-card compact">
+              <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
+              {isAvailable === false ? (
+                <div className="sold-out">❌ Sold Out</div>
+              ) : (
+                <button
+                  className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
+                  onClick={() => setSelectedTokenId(id)}
+                >
+                  {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <div className="button-group">
         <button
           className="button primary"
-          disabled={selectedTokenId === null}
+          disabled={
+            selectedTokenId === null || availability[selectedTokenId] === false
+          }
           onClick={handleBuyNFT}
         >
           💳 Buy Selected NFT
@@ -138,7 +169,7 @@ export default function Membership() {
               key={id}
               className="button primary"
               onClick={() => handleSendNFT(id)}
-              disabled={!purchased}
+              disabled={!purchased || availability[id] === false}
             >
               Send NFT #{id}
             </button>
@@ -146,5 +177,5 @@ export default function Membership() {
         </div>
       )}
     </div>
-  )
+  );
 }

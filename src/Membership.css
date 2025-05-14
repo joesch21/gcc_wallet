@@ -159,4 +159,10 @@ code {
   transform: scale(1.2);
 }
 
+.sold-out {
+  color: #b00020;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 12px;
+}
 
