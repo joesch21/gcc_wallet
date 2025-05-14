@@ -11,8 +11,6 @@ export default function Membership() {
   const navigate = useNavigate()
   const [wallet, setWallet] = useState(location.state?.wallet || null)
   const [loading, setLoading] = useState(!wallet)
-  const [mnemonic, setMnemonic] = useState(null)
-  const [acknowledged, setAcknowledged] = useState(false)
   const [purchased, setPurchased] = useState(false)
   const [selectedTokenId, setSelectedTokenId] = useState(null)
 
@@ -29,7 +27,11 @@ export default function Membership() {
         })
         const data = await res.json()
         setWallet(data.address)
-        if (data.mnemonic) setMnemonic(data.mnemonic)
+
+        if (data.mnemonic) {
+          // Redirect to backup page if mnemonic returned (first-time user)
+          navigate('/backup', { state: { wallet: data.address, mnemonic: data.mnemonic } })
+        }
       } catch (err) {
         console.error('Failed to fetch wallet:', err)
         navigate('/')
@@ -96,41 +98,7 @@ export default function Membership() {
     navigate('/')
   }
 
-  const handleContinue = () => setAcknowledged(true)
-
   if (loading) return <div className="container">Loading membership data...</div>
-
-  if (mnemonic && !acknowledged) {
-    return (
-      <div className="container mnemonic-warning">
-        <h2>🔐 Important: Backup Your Wallet</h2>
-        <p>
-          This is your unique wallet recovery phrase (mnemonic). It is the ONLY way to recover your wallet.
-          Store it safely and privately — do NOT share it. We do not store this anywhere.
-        </p>
-        <pre className="mnemonic-display">{mnemonic}</pre>
-        <label className="backup-check">
-          <input
-            type="checkbox"
-            onChange={(e) => setAcknowledged(e.target.checked)}
-          />
-          I have securely saved my recovery phrase and understand I cannot access my wallet without it.
-        </label>
-        {acknowledged && (
-          <button className="button primary" onClick={handleContinue}>
-            ✅ Continue to Membership Area
-          </button>
-        )}
-        <div className="backup-recommendation">
-          <p>
-            🔁 For long-term security, we recommend moving your NFT and tokens to a trusted wallet like{' '}
-            <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">MetaMask</a> or{' '}
-            <a href="https://trustwallet.com" target="_blank" rel="noopener noreferrer">Trust Wallet</a>.
-          </p>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="membership-container">

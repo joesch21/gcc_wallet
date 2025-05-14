@@ -139,6 +139,14 @@ code {
   text-align: left;
 }
 
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
 .container label {
   display: flex;
   align-items: center;
