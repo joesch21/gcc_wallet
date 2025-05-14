@@ -160,9 +160,15 @@ code {
 }
 
 .sold-out {
-  color: #b00020;
   font-weight: bold;
+  color: #ff3b3b;
+  background: rgba(255, 59, 59, 0.1);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
 }
+
 
