@@ -102,18 +102,25 @@ export default function Membership() {
 
   if (mnemonic && !acknowledged) {
     return (
-      <div className="container">
+      <div className="container mnemonic-backup">
         <h2>🔐 Backup Your Wallet</h2>
-        <p>This is your recovery phrase. Please save it securely — we cannot show it again later.</p>
+        <p>This is your recovery phrase. Please store it securely. You will not see it again.</p>
         <pre className="mnemonic-display">{mnemonic}</pre>
-        <label>
-          <input type="checkbox" onChange={(e) => setAcknowledged(e.target.checked)} /> I have securely stored my wallet recovery phrase
+        <label className="backup-check">
+          <input type="checkbox" onChange={(e) => setAcknowledged(e.target.checked)} /> I have securely stored my wallet recovery phrase and understand that losing it means losing access to my assets.
         </label>
         {acknowledged && (
           <button className="button primary" onClick={handleAcknowledge}>
-            Continue
+            ✅ Continue to Dashboard
           </button>
         )}
+        <div className="backup-recommendation">
+          <p>
+            🔁 We strongly recommend transferring your NFT and GCC tokens to a wallet like{' '}
+            <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">MetaMask</a> or{' '}
+            <a href="https://trustwallet.com" target="_blank" rel="noopener noreferrer">Trust Wallet</a> for safe keeping.
+          </p>
+        </div>
       </div>
     )
   }
