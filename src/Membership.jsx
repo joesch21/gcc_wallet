@@ -27,11 +27,6 @@ export default function Membership() {
         })
         const data = await res.json()
         setWallet(data.address)
-
-        if (data.mnemonic) {
-          // Redirect to backup page if mnemonic returned (first-time user)
-          navigate('/backup', { state: { wallet: data.address, mnemonic: data.mnemonic } })
-        }
       } catch (err) {
         console.error('Failed to fetch wallet:', err)
         navigate('/')

@@ -5,12 +5,15 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { auth } from './firebase'
+import { useNavigate } from 'react-router-dom'
+import { createWalletFromBackend } from './wallet'
 
-export default function Login({ onLogin }) {
+export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isRegister, setIsRegister] = useState(false)
   const [status, setStatus] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -47,8 +50,22 @@ export default function Login({ onLogin }) {
       }
 
       const token = await userCredential.user.getIdToken()
-      setStatus('✅ Success! Wallet is being prepared...')
-      onLogin(token)
+      const result = await createWalletFromBackend(token)
+
+      if (result.mnemonic) {
+        navigate('/backup', {
+          state: {
+            wallet: result.address,
+            mnemonic: result.mnemonic,
+          },
+        })
+      } else {
+        navigate('/membership', {
+          state: {
+            wallet: result.address,
+          },
+        })
+      }
     } catch (err) {
       console.error(err)
 
