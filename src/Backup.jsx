@@ -19,14 +19,18 @@ export default function Backup() {
   return (
     <div className="container">
       <h2>🔐 Backup Your Wallet</h2>
-      <p>This is your seed phrase. Store it somewhere **safe and offline**.</p>
+      <p>This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.</p>
       <div className="mnemonic-box">{mnemonic}</div>
 
       <label className="checkbox-label">
-        <input type="checkbox" id="acknowledge" onChange={(e) => {
-          document.getElementById('continue').disabled = !e.target.checked
-        }} />
-        I understand this is the **only way** to recover my wallet.
+        <input
+          type="checkbox"
+          id="acknowledge"
+          onChange={(e) => {
+            document.getElementById('continue').disabled = !e.target.checked
+          }}
+        />
+        I understand this is the <strong>only way</strong> to recover my wallet.
       </label>
 
       <button
