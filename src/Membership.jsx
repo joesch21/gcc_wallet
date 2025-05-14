@@ -96,29 +96,36 @@ export default function Membership() {
     navigate('/')
   }
 
-  const handleAcknowledge = () => setAcknowledged(true)
+  const handleContinue = () => setAcknowledged(true)
 
   if (loading) return <div className="container">Loading membership data...</div>
 
   if (mnemonic && !acknowledged) {
     return (
-      <div className="container mnemonic-backup">
-        <h2>🔐 Backup Your Wallet</h2>
-        <p>This is your recovery phrase. Please store it securely. You will not see it again.</p>
+      <div className="container mnemonic-warning">
+        <h2>🔐 Important: Backup Your Wallet</h2>
+        <p>
+          This is your unique wallet recovery phrase (mnemonic). It is the ONLY way to recover your wallet.
+          Store it safely and privately — do NOT share it. We do not store this anywhere.
+        </p>
         <pre className="mnemonic-display">{mnemonic}</pre>
         <label className="backup-check">
-          <input type="checkbox" onChange={(e) => setAcknowledged(e.target.checked)} /> I have securely stored my wallet recovery phrase and understand that losing it means losing access to my assets.
+          <input
+            type="checkbox"
+            onChange={(e) => setAcknowledged(e.target.checked)}
+          />
+          I have securely saved my recovery phrase and understand I cannot access my wallet without it.
         </label>
         {acknowledged && (
-          <button className="button primary" onClick={handleAcknowledge}>
-            ✅ Continue to Dashboard
+          <button className="button primary" onClick={handleContinue}>
+            ✅ Continue to Membership Area
           </button>
         )}
         <div className="backup-recommendation">
           <p>
-            🔁 We strongly recommend transferring your NFT and GCC tokens to a wallet like{' '}
+            🔁 For long-term security, we recommend moving your NFT and tokens to a trusted wallet like{' '}
             <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">MetaMask</a> or{' '}
-            <a href="https://trustwallet.com" target="_blank" rel="noopener noreferrer">Trust Wallet</a> for safe keeping.
+            <a href="https://trustwallet.com" target="_blank" rel="noopener noreferrer">Trust Wallet</a>.
           </p>
         </div>
       </div>
