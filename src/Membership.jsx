@@ -104,7 +104,7 @@ export default function Membership() {
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
       <div className="nft-gallery">
-        {[0, 1].map((id) => (
+        {[1, 2].map((id) => (
           <div key={id} className="nft-card compact">
             <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
             <button
@@ -133,7 +133,7 @@ export default function Membership() {
       {purchased && (
         <div className="button-group">
           <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
-          {[0, 1].map((id) => (
+          {[1, 2].map((id) => (
             <button
               key={id}
               className="button primary"
