@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
 import './Membership.css';
@@ -15,7 +15,6 @@ export default function Membership() {
   const [selectedTokenId, setSelectedTokenId] = useState(null);
   const [availability, setAvailability] = useState({});
 
-  // ✅ Fetch wallet on mount
   useEffect(() => {
     const fetchWallet = async () => {
       try {
@@ -40,7 +39,6 @@ export default function Membership() {
     if (!wallet) fetchWallet();
   }, [wallet, navigate]);
 
-  // ✅ Check if user already purchased
   useEffect(() => {
     const checkPurchase = async () => {
       try {
@@ -62,7 +60,6 @@ export default function Membership() {
     if (wallet) checkPurchase();
   }, [wallet]);
 
-  // ✅ Fetch NFT availability
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
@@ -77,7 +74,6 @@ export default function Membership() {
     fetchAvailability();
   }, []);
 
-  // ✅ Send NFT
   const handleSendNFT = async (tokenId) => {
     try {
       const token = await auth.currentUser.getIdToken();
@@ -97,7 +93,6 @@ export default function Membership() {
     }
   };
 
-  // ✅ Buy NFT
   const handleBuyNFT = async () => {
     try {
       const result = await stripeCheckout(wallet, selectedTokenId);
@@ -108,7 +103,6 @@ export default function Membership() {
     }
   };
 
-  // ✅ Logout
   const handleLogout = async () => {
     await signOut(auth);
     navigate('/');
@@ -127,7 +121,6 @@ export default function Membership() {
       <div className="nft-gallery">
         {[1, 2].map((id) => {
           const isAvailable = availability[id];
-
           return (
             <div key={id} className="nft-card compact">
               <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
@@ -149,9 +142,7 @@ export default function Membership() {
       <div className="button-group">
         <button
           className="button primary"
-          disabled={
-            selectedTokenId === null || availability[selectedTokenId] === false
-          }
+          disabled={selectedTokenId === null || availability[selectedTokenId] === false}
           onClick={handleBuyNFT}
         >
           💳 Buy Selected NFT
@@ -159,6 +150,9 @@ export default function Membership() {
         <button className="button secondary" onClick={handleLogout}>
           Log out
         </button>
+        <Link to="/wallet">
+          <button className="button tertiary">🔍 View My Wallet</button>
+        </Link>
       </div>
 
       {purchased && (

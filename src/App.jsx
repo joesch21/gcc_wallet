@@ -6,6 +6,7 @@ import Success from './Success'
 import Cancel from './Cancel' // Optional: create this file
 import './App.css'
 import Membership from './Membership'
+import WalletOverview from './WalletOverview'
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
       <Route path="/cancel" element={<Cancel />} />
       <Route path="/membership" element={<Membership />} />
       <Route path="/backup" element={<Backup />} />
+      <Route path="/wallet" element={<WalletOverview />} />
+
     </Routes>
   )
 }
