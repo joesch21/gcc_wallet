@@ -1,0 +1,89 @@
+/* File: Login.css */
+
+.login-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-container h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.subtext {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+
+form input:focus {
+  outline: none;
+  border-color: #0070f3;
+}
+
+.button {
+  font-size: 1rem;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.button.primary {
+  background-color: #0070f3;
+  color: white;
+}
+
+.button.secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.status-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #e63946;
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 1.2rem;
+    margin: 2rem 1rem;
+  }
+
+  .login-container h1 {
+    font-size: 1.4rem;
+  }
+
+  .subtext {
+    font-size: 0.85rem;
+  }
+
+  form input {
+    font-size: 0.95rem;
+  }
+
+  .button {
+    font-size: 0.95rem;
+  }
+}

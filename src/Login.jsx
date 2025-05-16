@@ -1,138 +1,110 @@
-// File: src/Login.jsx
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-} from 'firebase/auth'
-import { auth } from './firebase'
-import { useNavigate } from 'react-router-dom'
-import { createWalletFromBackend } from './wallet'
+} from 'firebase/auth';
+import { auth } from './firebase';
+import { useNavigate } from 'react-router-dom';
+import { createWalletFromBackend } from './wallet';
+import './Login.css';
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isRegister, setIsRegister] = useState(false)
-  const [status, setStatus] = useState('')
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isRegister, setIsRegister] = useState(false);
+  const [status, setStatus] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus(isRegister ? 'Creating account...' : 'Logging in...')
+    e.preventDefault();
+    setStatus(isRegister ? 'Creating your crypto identity...' : 'Logging in...');
 
     try {
-      let userCredential
+      let userCredential;
 
       if (isRegister) {
         try {
-          userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email.trim(),
-            password
-          )
+          userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
         } catch (err) {
           if (err.code === 'auth/email-already-in-use') {
-            setStatus('🔁 Email already registered. Logging in...')
-            userCredential = await signInWithEmailAndPassword(
-              auth,
-              email.trim(),
-              password
-            )
+            setStatus('🔁 Email already registered. Logging you in...');
+            userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
           } else {
-            throw err
+            throw err;
           }
         }
       } else {
-        userCredential = await signInWithEmailAndPassword(
-          auth,
-          email.trim(),
-          password
-        )
+        userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
       }
 
-      const token = await userCredential.user.getIdToken()
-      const result = await createWalletFromBackend(token)
+      const token = await userCredential.user.getIdToken();
+      const result = await createWalletFromBackend(token);
 
       if (result.mnemonic) {
-        navigate('/backup', {
-          state: {
-            wallet: result.address,
-            mnemonic: result.mnemonic,
-          },
-        })
+        navigate('/backup', { state: { wallet: result.address, mnemonic: result.mnemonic } });
       } else {
-        navigate('/membership', {
-          state: {
-            wallet: result.address,
-          },
-        })
+        navigate('/membership', { state: { wallet: result.address } });
       }
     } catch (err) {
-      console.error(err)
-
+      console.error(err);
       switch (err.code) {
         case 'auth/user-not-found':
-          setStatus('⚠️ No account found. Try registering instead.')
-          break
+          setStatus('⚠️ No account found. Try registering instead.');
+          break;
         case 'auth/wrong-password':
-          setStatus('❌ Incorrect password.')
-          break
+          setStatus('❌ Incorrect password.');
+          break;
         case 'auth/invalid-email':
-          setStatus('❌ Please enter a valid email address.')
-          break
+          setStatus('❌ Invalid email address.');
+          break;
         case 'auth/invalid-credential':
-          setStatus('❌ Invalid login. Please check your email and password.')
-          break
+          setStatus('❌ Check your email and password.');
+          break;
         default:
-          setStatus(`❌ ${err.message}`)
-          break
+          setStatus(`❌ ${err.message}`);
+          break;
       }
     }
-  }
-
-  const handleToggle = () => {
-    setIsRegister(!isRegister)
-    setStatus('')
-  }
+  };
 
   return (
-    <div className="container">
-      <h2>{isRegister ? 'Create Your Account' : 'Welcome Back'}</h2>
-
-      <p style={{ fontSize: '0.9rem', color: '#555' }}>
+    <div className="login-container">
+      <h1>{isRegister ? '🔑 Join the GCC Network' : '👋 Welcome Back'}</h1>
+      <p className="subtext">
         {isRegister
-          ? 'Register with your email to create a crypto wallet and receive your GCC Membership NFT.'
-          : 'Log in to access your wallet and claim your GCC Membership NFT.'}
+          ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
+          : 'Log in to manage your wallet, NFTs, and unlock premium GCC features.'}
       </p>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: '1rem' }}>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="📧 Email address"
           value={email}
-          autoComplete="email"
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           required
-        /><br />
+        />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="🔒 Password"
           value={password}
-          autoComplete={isRegister ? 'new-password' : 'current-password'}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete={isRegister ? 'new-password' : 'current-password'}
           required
-        /><br />
+        />
         <button type="submit" className="button primary">
-          {isRegister ? 'Register & Get Wallet' : 'Login to Wallet'}
+          {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
         </button>
       </form>
 
-      <button onClick={handleToggle} className="button secondary">
+      <button onClick={() => setIsRegister(!isRegister)} className="button secondary">
         {isRegister
           ? '← Already have an account? Log in'
-          : '→ New here? Create an account'}
+          : '→ New to GCC? Create an account'}
       </button>
 
-      {status && <p className="status">{status}</p>}
+      {status && <p className="status-text">{status}</p>}
     </div>
-  )
+  );
 }
