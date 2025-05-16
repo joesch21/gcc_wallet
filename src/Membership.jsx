@@ -8,7 +8,6 @@ import { stripeCheckout } from './stripeHandler';
 export default function Membership() {
   const location = useLocation();
   const navigate = useNavigate();
-
   const [wallet, setWallet] = useState(location.state?.wallet || null);
   const [loading, setLoading] = useState(!wallet);
   const [purchased, setPurchased] = useState(false);
@@ -108,7 +107,7 @@ export default function Membership() {
     navigate('/');
   };
 
-  if (loading) return <div className="container">Loading membership data...</div>;
+  if (loading) return <div className="membership-container">Loading membership data...</div>;
 
   return (
     <div className="membership-container">
@@ -151,7 +150,7 @@ export default function Membership() {
           Log out
         </button>
         <Link to="/wallet">
-          <button className="button tertiary">🔍 View My Wallet</button>
+          <button className="button secondary">🔍 View My Wallet</button>
         </Link>
       </div>
 

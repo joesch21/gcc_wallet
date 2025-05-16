@@ -64,6 +64,8 @@
   font-size: 1rem;
   margin-top: 2rem;
   transition: background-color 0.3s;
+  width: 100%;
+  max-width: 300px;
 }
 
 .wallet-overview-container .button:hover {
@@ -80,4 +82,34 @@
   font-size: 1rem;
   color: #333;
   margin: 0.5rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  .wallet-overview-container {
+    padding: 1rem;
+  }
+
+  .wallet-overview-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .wallet-overview-container .nft-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .wallet-overview-container .button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .wallet-overview-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .wallet-overview-container code.wallet-address {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
 }
