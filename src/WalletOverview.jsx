@@ -12,9 +12,10 @@ export default function WalletOverview() {
       try {
         const token = await auth.currentUser.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wallet_overview`, {
-          method: 'GET',
+          method: 'POST', // ✅ CORRECT METHOD
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         });
 
@@ -43,13 +44,13 @@ export default function WalletOverview() {
     <div className="container">
       <h1>🔐 Wallet Overview</h1>
       <p><strong>Address:</strong></p>
-      <code className="wallet-address">{walletInfo?.wallet}</code>
+      <code className="wallet-address">{walletInfo.wallet}</code>
 
       <h2>🖼️ Owned NFTs</h2>
-      <p>{walletInfo?.nftCount ?? 0} NFT(s) owned</p>
+      <p>{walletInfo.nftCount ?? 0} NFT(s) owned</p>
 
       <h2>💰 GCC Token Balance</h2>
-      <p>{walletInfo?.balance ?? '0.0000'} GCC</p>
+      <p>{walletInfo.balance ?? '0.0000'} GCC</p>
 
       <button className="button secondary" onClick={() => navigate('/membership')}>
         ← Back to Membership
