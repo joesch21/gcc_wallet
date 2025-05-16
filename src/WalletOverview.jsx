@@ -12,10 +12,9 @@ export default function WalletOverview() {
       try {
         const token = await auth.currentUser.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wallet_overview`, {
-          method: 'POST',
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
           },
         });
 
@@ -39,18 +38,10 @@ export default function WalletOverview() {
     <div className="container">
       <h1>🔐 Wallet Overview</h1>
       <p><strong>Address:</strong></p>
-      <code className="wallet-address">{walletInfo.address}</code>
+      <code className="wallet-address">{walletInfo.wallet}</code>
 
       <h2>🖼️ Owned NFTs</h2>
-      {walletInfo.nfts.length > 0 ? (
-        <ul>
-          {walletInfo.nfts.map((id) => (
-            <li key={id}>GCC NFT #{id}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No NFTs owned.</p>
-      )}
+      <p>{walletInfo.nftCount} NFT(s) owned</p>
 
       <h2>💰 GCC Token Balance</h2>
       <p>{walletInfo.balance} GCC</p>
