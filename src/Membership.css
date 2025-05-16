@@ -1,7 +1,7 @@
-/* === Membership.css (Mobile-Optimized) === */
+/* === Membership.css (Mobile-Optimized & Transparent Login Container) === */
 
 body {
-  background: url('/logo192.webp') no-repeat center center fixed;
+  background: url('/background.png') no-repeat center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   max-width: 700px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #ffffffee;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -63,7 +63,7 @@ body {
 
 .button {
   font-size: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.2rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -115,6 +115,17 @@ body {
   margin-top: 1rem;
 }
 
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
 @media screen and (max-width: 600px) {
   .membership-container {
     padding: 1rem;
@@ -141,5 +152,11 @@ body {
   .mnemonic-display {
     font-size: 0.85rem;
     padding: 0.75rem;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    font-size: 0.9rem;
+    padding: 0.5rem;
   }
 }
