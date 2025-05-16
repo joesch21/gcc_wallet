@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { auth } from './firebase';
 import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function WalletOverview() {
   const navigate = useNavigate();
@@ -8,11 +9,14 @@ export default function WalletOverview() {
   const [walletInfo, setWalletInfo] = useState(null);
 
   useEffect(() => {
-    const fetchWalletOverview = async () => {
-      try {
-        const user = auth.currentUser;
-        if (!user) throw new Error('User not authenticated');
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        console.warn('No user is logged in');
+        navigate('/');
+        return;
+      }
 
+      try {
         const token = await user.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wallet_overview`, {
           method: 'POST',
@@ -30,9 +34,9 @@ export default function WalletOverview() {
       } finally {
         setLoading(false);
       }
-    };
+    });
 
-    fetchWalletOverview();
+    return () => unsubscribe();
   }, [navigate]);
 
   if (loading) {
