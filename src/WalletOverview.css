@@ -1,0 +1,83 @@
+/* === WalletOverview.css === */
+
+.wallet-overview-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.wallet-overview-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.wallet-overview-container code.wallet-address {
+  display: inline-block;
+  background-color: #f3f3f3;
+  padding: 0.6rem 1.2rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.wallet-overview-container .nft-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.wallet-overview-container .nft-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 200px;
+  background: #f9f9f9;
+  transition: transform 0.2s;
+}
+
+.wallet-overview-container .nft-card:hover {
+  transform: translateY(-5px);
+}
+
+.wallet-overview-container .nft-image {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.wallet-overview-container .button {
+  background-color: #0047AB;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 2rem;
+  transition: background-color 0.3s;
+}
+
+.wallet-overview-container .button:hover {
+  background-color: #003a91;
+}
+
+.wallet-overview-container h2 {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  color: #222;
+}
+
+.wallet-overview-container p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
