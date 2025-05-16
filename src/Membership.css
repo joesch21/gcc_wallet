@@ -1,14 +1,21 @@
 /* === Membership.css (Mobile-Optimized) === */
 
+body {
+  background: url('/logo192.webp') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 .membership-container {
   max-width: 700px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #ffffff;
+  background: #ffffffee;
   border-radius: 12px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 .membership-container h1 {

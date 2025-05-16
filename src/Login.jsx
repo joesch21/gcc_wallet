@@ -71,7 +71,7 @@ export default function Login() {
     <div className="login-container">
       <h1 className="login-title">
   <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
-  {isRegister ? 'Join the GCC Network' : 'Welcome Back'}
+  {isRegister ? 'Join the GCC Network' : 'Welcome'}
 </h1>
 
       <p className="subtext">
