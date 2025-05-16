@@ -69,7 +69,11 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <h1>{isRegister ? '🔑 Join the GCC Network' : '👋 Welcome Back'}</h1>
+      <h1 className="login-title">
+  <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
+  {isRegister ? 'Join the GCC Network' : 'Welcome Back'}
+</h1>
+
       <p className="subtext">
         {isRegister
           ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
