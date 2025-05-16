@@ -171,4 +171,26 @@ code {
   text-transform: uppercase;
 }
 
+.nft-gallery {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nft-card {
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.nft-image {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
 

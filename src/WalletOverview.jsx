@@ -10,9 +10,12 @@ export default function WalletOverview() {
   useEffect(() => {
     const fetchWalletOverview = async () => {
       try {
-        const token = await auth.currentUser.getIdToken();
+        const user = auth.currentUser;
+        if (!user) throw new Error('User not authenticated');
+
+        const token = await user.getIdToken();
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wallet_overview`, {
-          method: 'POST', // ✅ CORRECT METHOD
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -47,7 +50,22 @@ export default function WalletOverview() {
       <code className="wallet-address">{walletInfo.wallet}</code>
 
       <h2>🖼️ Owned NFTs</h2>
-      <p>{walletInfo.nftCount ?? 0} NFT(s) owned</p>
+      {walletInfo.nftIds && walletInfo.nftIds.length > 0 ? (
+        <div className="nft-gallery">
+          {walletInfo.nftIds.map((id) => (
+            <div key={id} className="nft-card compact">
+              <img
+                src={`/nft${id}.png`}
+                alt={`GCC NFT #${id}`}
+                className="nft-image"
+              />
+              <p>GCC NFT #{id}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No NFTs owned.</p>
+      )}
 
       <h2>💰 GCC Token Balance</h2>
       <p>{walletInfo.balance ?? '0.0000'} GCC</p>
