@@ -7,9 +7,13 @@ import { stripeCheckout } from './stripeHandler';
 
 const nftMetadata = {
   1: { priceUsd: 600, gccReward: 100 },
-  2: { priceUsd: 2400, gccReward: 400 },
-  3: { priceUsd: 6000, gccReward: 1000 },
+  2: { priceUsd: 600, gccReward: 100 },
+  3: { priceUsd: 2400, gccReward: 400 },
+  4: { priceUsd: 2400, gccReward: 400 },
+  5: { priceUsd: 6000, gccReward: 1000 },
+  6: { priceUsd: 6000, gccReward: 1000 },
 };
+
 
 export default function Membership() {
   const location = useLocation();
