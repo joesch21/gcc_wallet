@@ -5,6 +5,12 @@ import { signOut } from 'firebase/auth';
 import './Membership.css';
 import { stripeCheckout } from './stripeHandler';
 
+const nftMetadata = {
+  1: { priceUsd: 600, gccReward: 100 },
+  2: { priceUsd: 2400, gccReward: 400 },
+  3: { priceUsd: 6000, gccReward: 1000 },
+};
+
 export default function Membership() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -122,9 +128,12 @@ export default function Membership() {
           .filter(([, isAvailable]) => isAvailable)
           .map(([id]) => {
             id = Number(id);
+            const metadata = nftMetadata[id] || {};
             return (
               <div key={id} className="nft-card compact">
                 <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
+                <p className="nft-price">${(metadata.priceUsd / 100).toFixed(2)} USD</p>
+                <p className="nft-reward">🎁 {metadata.gccReward} GCC</p>
                 <button
                   className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
                   onClick={() => setSelectedTokenId(id)}
@@ -155,7 +164,7 @@ export default function Membership() {
       {purchased && (
         <div className="button-group">
           <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
-          {Object.entries(availability).map(([id]) => (
+          {Object.keys(availability).map((id) => (
             <button
               key={id}
               className="button primary"
