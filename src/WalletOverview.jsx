@@ -57,7 +57,8 @@ export default function WalletOverview() {
 
       <h2>🖼️ Owned NFTs</h2>
       {walletInfo.nftIds && walletInfo.nftIds.length > 0 ? (
-        <div className="nft-gallery">
+        <div className="nft-carousel">
+
           {walletInfo.nftIds.map((id) => (
             <div key={id} className="nft-card compact">
               <img

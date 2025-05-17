@@ -117,25 +117,23 @@ export default function Membership() {
 
       <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
-      <div className="nft-gallery">
-        {[1, 2].map((id) => {
-          const isAvailable = availability[id];
-          return (
-            <div key={id} className="nft-card compact">
-              <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
-              {isAvailable === false ? (
-                <div className="sold-out">❌ Sold Out</div>
-              ) : (
+      <div className="nft-carousel">
+        {Object.entries(availability)
+          .filter(([, isAvailable]) => isAvailable)
+          .map(([id]) => {
+            id = Number(id);
+            return (
+              <div key={id} className="nft-card compact">
+                <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
                 <button
                   className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
                   onClick={() => setSelectedTokenId(id)}
                 >
                   {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
                 </button>
-              )}
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
       </div>
 
       <div className="button-group">
@@ -157,11 +155,11 @@ export default function Membership() {
       {purchased && (
         <div className="button-group">
           <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
-          {[1, 2].map((id) => (
+          {Object.entries(availability).map(([id]) => (
             <button
               key={id}
               className="button primary"
-              onClick={() => handleSendNFT(id)}
+              onClick={() => handleSendNFT(Number(id))}
               disabled={!purchased || availability[id] === false}
             >
               Send NFT #{id}
