@@ -40,6 +40,8 @@ body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
   gap: 1rem;
   padding: 1rem;
   margin-top: 1rem;
@@ -49,6 +51,7 @@ body {
 .nft-carousel::-webkit-scrollbar {
   height: 6px;
 }
+
 .nft-carousel::-webkit-scrollbar-thumb {
   background: #bbb;
   border-radius: 3px;
@@ -58,7 +61,7 @@ body {
 .nft-card {
   scroll-snap-align: center;
   flex: 0 0 auto;
-  width: 85vw;
+  width: 75vw;
   max-width: 280px;
   background: #f9f9f9;
   padding: 0.75rem;
@@ -173,7 +176,7 @@ input[type="password"] {
   }
 
   .nft-card {
-    width: 85%;
+    width: 85vw;
     max-width: 280px;
   }
 
@@ -191,5 +194,11 @@ input[type="password"] {
   input[type="password"] {
     font-size: 0.9rem;
     padding: 0.5rem;
+  }
+
+  .nft-carousel {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 0.75rem;
   }
 }
