@@ -1,4 +1,4 @@
-/* === Membership.css (Mobile-Optimized & Transparent Login Container) === */
+/* === Membership.css (Mobile-Optimized + Carousel Refined) === */
 
 body {
   background: url('/background.png') no-repeat center center fixed;
@@ -34,33 +34,62 @@ body {
   word-break: break-all;
 }
 
-.nft-gallery {
+/* === NFT Carousel === */
+.nft-carousel {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   gap: 1rem;
-  margin-top: 1.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  scroll-padding-inline: 1rem;
 }
 
-.nft-card.compact {
+.nft-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+.nft-carousel::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 3px;
+}
+
+/* === NFT Cards === */
+.nft-card {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+  width: 85vw;
+  max-width: 280px;
   background: #f9f9f9;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 160px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
 }
 
 .nft-image {
-  max-width: 100%;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
-  border: 1px solid #ddd;
   margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
 }
 
+.nft-reward {
+  font-weight: bold;
+  color: #007b00;
+  font-size: 0.9rem;
+}
+
+.nft-price {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* === Buttons === */
 .button {
   font-size: 1rem;
   padding: 0.65rem 1.2rem;
@@ -69,6 +98,7 @@ body {
   cursor: pointer;
   margin-top: 1rem;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .button.primary {
@@ -85,6 +115,7 @@ body {
   margin-top: 2rem;
 }
 
+/* === Special Elements === */
 .sold-out {
   font-weight: bold;
   color: #ff3b3b;
@@ -115,6 +146,7 @@ body {
   margin-top: 1rem;
 }
 
+/* === Inputs === */
 input[type="email"],
 input[type="password"] {
   width: 100%;
@@ -126,49 +158,7 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-.nft-carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: 1rem;
-  padding: 1rem 0;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scroll-padding: 1rem;
-  margin: 0 -1rem; /* full bleed for edge-to-edge swipe */
-}
-
-.nft-carousel::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 3px;
-}
-
-
-
-.nft-card {
-  scroll-snap-align: start;
-  flex: 0 0 auto;
-  width: 180px;
-  max-width: 90%;
-  margin: 0 0.5rem;
-  background: #f9f9f9;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  position: relative;
-}
-
-.nft-reward {
-  font-weight: bold;
-  color: #007b00; /* green for positive reward vibe */
-  font-size: 0.9rem;
-}
-
-
-
-
-
-
+/* === Responsive Optimizations === */
 @media screen and (max-width: 600px) {
   .membership-container {
     padding: 1rem;
@@ -182,8 +172,8 @@ input[type="password"] {
     font-size: 0.85rem;
   }
 
-  .nft-card.compact {
-    width: 100%;
+  .nft-card {
+    width: 85%;
     max-width: 280px;
   }
 
@@ -201,18 +191,5 @@ input[type="password"] {
   input[type="password"] {
     font-size: 0.9rem;
     padding: 0.5rem;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .nft-carousel {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    gap: 0.75rem;
-  }
-
-  .nft-card {
-    width: 85%;
-    max-width: 280px;
   }
 }
