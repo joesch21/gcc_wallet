@@ -180,10 +180,11 @@ input[type="text"] {
 @media screen and (max-width: 480px) {
   .membership-container {
     padding: 1rem;
-    margin: 1.5rem auto;
-    width: 95vw;
+    margin: 1.5rem auto !important; /* Forces horizontal centering */
+    width: 94vw;
     max-width: 360px;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
   }
 
   .membership-container h1 {
@@ -206,7 +207,7 @@ input[type="text"] {
   }
 
   .nft-carousel {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
     scroll-padding-left: 0;
     scroll-padding-right: 0;
     gap: 0.5rem;
@@ -218,7 +219,7 @@ input[type="text"] {
     max-width: 280px;
     margin: 0 auto;
     scroll-snap-align: center;
-    padding: 0.75rem; /* tighter internal spacing */
+    padding: 0.7rem; /* tighter internal spacing */
   }
 
   .nft-image {
