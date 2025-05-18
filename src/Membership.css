@@ -162,7 +162,7 @@ input[type="password"] {
 }
 
 /* === Responsive Optimizations === */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
   .membership-container {
     padding: 1rem;
   }
