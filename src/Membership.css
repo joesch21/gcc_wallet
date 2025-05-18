@@ -156,21 +156,12 @@ input[type="password"] {
   position: relative;
 }
 
-.ribbon {
-  position: absolute;
-  top: 8px;
-  left: -8px;
-  background-color: #ffcc00;
-  color: #000;
+.nft-reward {
   font-weight: bold;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  transform: rotate(-45deg);
-  transform-origin: top left;
-  z-index: 10;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  border-radius: 4px;
+  color: #007b00; /* green for positive reward vibe */
+  font-size: 0.9rem;
 }
+
 
 
 
