@@ -61,7 +61,7 @@ body {
 
 /* === NFT Cards === */
 .nft-card {
-  scroll-snap-align: center;
+  scroll-snap-align: left;
   flex: 0 0 auto;
   width: 75vw;
   max-width: 280px;
@@ -185,7 +185,7 @@ input[type="password"] {
   }
 
   .nft-carousel {
-  justify-content: center; /* Ensure cards center-align */
+  justify-content: left; /* Ensure cards center-align */
 }
 
   .nft-card {
