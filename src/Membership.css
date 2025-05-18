@@ -40,6 +40,8 @@ body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  scroll-padding: 0;
+  justify-content: start;
   touch-action: pan-x;
   overscroll-behavior-x: contain;
   gap: 1rem;
@@ -165,7 +167,9 @@ input[type="password"] {
 @media screen and (max-width: 480px) {
   .membership-container {
     padding: 1rem;
-    margin: 1.5rem 1rem;
+    margin: 2rem auto;
+    width: 92vw;
+    max-width: 380px; /* Shrinks the white container */
     border-radius: 10px;
   }
 
@@ -181,16 +185,13 @@ input[type="password"] {
   }
 
   .nft-carousel {
-    padding: 0.5rem 0.75rem;
-    gap: 0.6rem;
-    scroll-padding-inline: 0.75rem;
-  }
+  justify-content: center; /* Ensure cards center-align */
+}
 
   .nft-card {
-    width: 88vw;
-    max-width: 260px;
-    padding: 0.65rem;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .nft-image {
