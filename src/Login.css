@@ -106,3 +106,9 @@ form input:focus {
     padding: 0.6rem 1rem;
   }
 }
+
+.g-recaptcha {
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
+}

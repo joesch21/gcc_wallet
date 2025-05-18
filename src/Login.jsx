@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -15,8 +15,29 @@ export default function Login() {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
+  // Ensure reCAPTCHA loads
+  useEffect(() => {
+    const loadRecaptcha = () => {
+      if (!window.grecaptcha) {
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+      }
+    };
+    loadRecaptcha();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const captchaToken = window.grecaptcha?.getResponse();
+    if (!captchaToken) {
+      setStatus('⚠️ Please complete the CAPTCHA first.');
+      return;
+    }
+
     setStatus(isRegister ? 'Creating your crypto identity...' : 'Logging in...');
 
     try {
@@ -40,6 +61,9 @@ export default function Login() {
       const token = await userCredential.user.getIdToken();
       const result = await createWalletFromBackend(token);
 
+      // Reset CAPTCHA after success
+      window.grecaptcha.reset();
+
       if (result.mnemonic) {
         navigate('/backup', { state: { wallet: result.address, mnemonic: result.mnemonic } });
       } else {
@@ -47,6 +71,8 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
+      window.grecaptcha.reset(); // Reset CAPTCHA on error
+
       switch (err.code) {
         case 'auth/user-not-found':
           setStatus('⚠️ No account found. Try registering instead.');
@@ -70,9 +96,9 @@ export default function Login() {
   return (
     <div className="login-container">
       <h1 className="login-title">
-  <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
-  {isRegister ? 'Join the GCC Network' : 'Welcome'}
-</h1>
+        <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
+        {isRegister ? 'Join the GCC Network' : 'Welcome'}
+      </h1>
 
       <p className="subtext">
         {isRegister
@@ -97,6 +123,13 @@ export default function Login() {
           autoComplete={isRegister ? 'new-password' : 'current-password'}
           required
         />
+
+        {/* ✅ reCAPTCHA widget */}
+        <div
+          className="g-recaptcha"
+          data-sitekey="6Ld0Vj8rAAAAABZ7IfBzOOan7bODvNux_gfJAl1A"
+        />
+
         <button type="submit" className="button primary">
           {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
         </button>
