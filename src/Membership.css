@@ -180,9 +180,9 @@ input[type="text"] {
 @media screen and (max-width: 480px) {
   .membership-container {
     padding: 1rem;
-    margin: 2rem auto;
-    width: 92vw;
-    max-width: 380px;
+    margin: 1.5rem auto;
+    width: 94vw;
+    max-width: 360px;
     border-radius: 10px;
   }
 
@@ -206,22 +206,24 @@ input[type="text"] {
   }
 
   .nft-carousel {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
     gap: 0.5rem;
     justify-content: center;
   }
 
   .nft-card {
-    width: 85vw;
-    max-width: 320px;
+    width: 82vw;
+    max-width: 300px;
     margin: 0 auto;
     scroll-snap-align: center;
+    padding: 0.6rem; /* tighter internal spacing */
   }
 
   .nft-image {
-    border-radius: 6px;
-    margin-bottom: 0.4rem;
-  }
+  border-radius: 6px;
+  margin-bottom: 0.25rem;
+}
+
 
   .nft-price,
   .nft-reward {
