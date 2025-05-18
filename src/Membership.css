@@ -181,7 +181,7 @@ input[type="text"] {
   .membership-container {
     padding: 1rem;
     margin: 1.5rem auto;
-    width: 94vw;
+    width: 95vw;
     max-width: 360px;
     border-radius: 10px;
   }
@@ -206,22 +206,24 @@ input[type="text"] {
   }
 
   .nft-carousel {
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
+    scroll-padding-left: 0;
+    scroll-padding-right: 0;
     gap: 0.5rem;
     justify-content: center;
   }
 
   .nft-card {
-    width: 82vw;
-    max-width: 300px;
+    width: 80vw;
+    max-width: 280px;
     margin: 0 auto;
     scroll-snap-align: center;
-    padding: 0.6rem; /* tighter internal spacing */
+    padding: 0.75rem; /* tighter internal spacing */
   }
 
   .nft-image {
   border-radius: 6px;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
 }
 
 
