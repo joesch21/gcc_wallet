@@ -211,7 +211,7 @@ input[type="text"] {
     scroll-padding-left: 0;
     scroll-padding-right: 0;
     gap: 0.5rem;
-    justify-content: center;
+    justify-content: right;
   }
 
   .nft-card {
