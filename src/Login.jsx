@@ -127,7 +127,9 @@ export default function Login() {
         {/* ✅ reCAPTCHA widget */}
         <div
           className="g-recaptcha"
-          data-sitekey="6Ld0Vj8rAAAAABZ7IfBzOOan7bODvNux_gfJAl1A"
+          data-sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+
+
         />
 
         <button type="submit" className="button primary">
