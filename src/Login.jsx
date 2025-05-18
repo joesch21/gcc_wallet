@@ -127,7 +127,7 @@ export default function Login() {
         {/* ✅ reCAPTCHA widget */}
         <div
           className="g-recaptcha"
-          data-sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+          data-sitekey={process.env.VITE_RECAPTCHA_SITE_KEY}
 
 
         />
