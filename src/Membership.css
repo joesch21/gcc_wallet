@@ -277,10 +277,9 @@ input[type="text"] {
   }
 
   .nft-image {
-  max-height: 280px;
-  object-fit: contain;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
 }
-
 
 
   .nft-price,
