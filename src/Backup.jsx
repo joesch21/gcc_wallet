@@ -1,35 +1,37 @@
 // File: src/Backup.jsx
-import { useLocation, useNavigate } from 'react-router-dom'
-import './Membership.css'
-import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+import './Membership.css';
+import { useEffect, useState } from 'react';
 
 export default function Backup() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const wallet = location.state?.wallet
-  const mnemonic = location.state?.mnemonic
-  const [acknowledged, setAcknowledged] = useState(false)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const wallet = location.state?.wallet;
+  const mnemonic = location.state?.mnemonic;
+  const [acknowledged, setAcknowledged] = useState(false);
 
   useEffect(() => {
     if (!wallet || !mnemonic) {
-      console.warn('Missing wallet or mnemonic in navigation state')
+      console.warn('Missing wallet or mnemonic in navigation state');
     }
-  }, [wallet, mnemonic])
+  }, [wallet, mnemonic]);
 
   const handleAcknowledge = () => {
     if (acknowledged) {
-      navigate('/membership', { state: { wallet } })
+      navigate('/membership', { state: { wallet } });
     }
-  }
+  };
 
   if (!wallet || !mnemonic) {
-    return <div className="container">Missing wallet or mnemonic data.</div>
+    return <div className="container">Missing wallet or mnemonic data.</div>;
   }
 
   return (
-    <div className="container">
+    <div className="backup-container">
       <h2>🔐 Backup Your Wallet</h2>
-      <p>This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.</p>
+      <p>
+        This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.
+      </p>
       <div className="mnemonic-box">{mnemonic}</div>
 
       <label className="checkbox-label">
@@ -51,5 +53,5 @@ export default function Backup() {
         Continue to Membership
       </button>
     </div>
-  )
+  );
 }

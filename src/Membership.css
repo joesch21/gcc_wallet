@@ -176,6 +176,36 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
+.backup-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: white;
+  color: black;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mnemonic-box {
+  font-family: monospace;
+  background: #f5f5f5;
+  color: #222;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  word-break: break-word;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
 /* === Responsive Optimizations === */
 @media screen and (max-width: 480px) {
   .membership-container {
