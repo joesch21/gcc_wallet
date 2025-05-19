@@ -15,7 +15,7 @@ export default function Login() {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  // Ensure reCAPTCHA loads
+  // Load reCAPTCHA script on mount
   useEffect(() => {
     const loadRecaptcha = () => {
       if (!window.grecaptcha) {
@@ -33,7 +33,7 @@ export default function Login() {
     e.preventDefault();
 
     const captchaToken = window.grecaptcha?.getResponse();
-    if (!captchaToken) {
+    if (isRegister && !captchaToken) {
       setStatus('⚠️ Please complete the CAPTCHA first.');
       return;
     }
@@ -59,10 +59,15 @@ export default function Login() {
       }
 
       const token = await userCredential.user.getIdToken();
-      const result = await createWalletFromBackend(token);
 
-      // Reset CAPTCHA after success
-      window.grecaptcha.reset();
+      let result;
+      if (isRegister) {
+        result = await createWalletFromBackend(token);
+      } else {
+        result = { address: userCredential.user.uid }; // You can load wallet info separately later
+      }
+
+      window.grecaptcha.reset(); // Always reset CAPTCHA after attempt
 
       if (result.mnemonic) {
         navigate('/backup', { state: { wallet: result.address, mnemonic: result.mnemonic } });
@@ -71,7 +76,7 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-      window.grecaptcha.reset(); // Reset CAPTCHA on error
+      window.grecaptcha.reset();
 
       switch (err.code) {
         case 'auth/user-not-found':
@@ -124,13 +129,12 @@ export default function Login() {
           required
         />
 
-        {/* ✅ reCAPTCHA widget */}
-        <div
-          className="g-recaptcha"
-          data-sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-
-
-        />
+        {isRegister && (
+          <div
+            className="g-recaptcha"
+            data-sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          />
+        )}
 
         <button type="submit" className="button primary">
           {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
