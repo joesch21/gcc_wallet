@@ -119,66 +119,68 @@ export default function Membership() {
   if (loading) return <div className="membership-container">Loading membership data...</div>;
 
   return (
-    <div className="membership-container">
-      <h1>🎉 Welcome to the GCC Members Area</h1>
-      <p>Your wallet address:</p>
-      <code className="wallet-address">{wallet}</code>
+    <div className="membership-page-wrapper">
+      <div className="membership-container">
+        <h1>🎉 Welcome to the GCC Members Area</h1>
+        <p>Your wallet address:</p>
+        <code className="wallet-address">{wallet}</code>
 
-      <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
+        <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
-      <div className="nft-carousel">
-        {Object.entries(availability)
-          .filter(([, isAvailable]) => isAvailable)
-          .map(([id]) => {
-            id = Number(id);
-            const metadata = nftMetadata[id] || {};
-            return (
-              <div key={id} className="nft-card compact">
-                <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
-                <p className="nft-price">${(metadata.priceUsd / 100).toFixed(2)} USD</p>
-                <p className="nft-reward">🎁 {metadata.gccReward} GCC FREE</p>
-                <button
-                  className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
-                  onClick={() => setSelectedTokenId(id)}
-                >
-                  {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
-                </button>
-              </div>
-            );
-          })}
-      </div>
-
-      <div className="button-group">
-        <button
-          className="button primary"
-          disabled={selectedTokenId === null || availability[selectedTokenId] === false}
-          onClick={handleBuyNFT}
-        >
-          💳 Buy Selected NFT
-        </button>
-        <button className="button secondary" onClick={handleLogout}>
-          Log out
-        </button>
-        <Link to="/wallet">
-          <button className="button secondary">🔍 View My Wallet</button>
-        </Link>
-      </div>
-
-      {purchased && (
-        <div className="button-group">
-          <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
-          {Object.keys(availability).map((id) => (
-            <button
-              key={id}
-              className="button primary"
-              onClick={() => handleSendNFT(Number(id))}
-              disabled={!purchased || availability[id] === false}
-            >
-              Send NFT #{id}
-            </button>
-          ))}
+        <div className="nft-carousel">
+          {Object.entries(availability)
+            .filter(([, isAvailable]) => isAvailable)
+            .map(([id]) => {
+              id = Number(id);
+              const metadata = nftMetadata[id] || {};
+              return (
+                <div key={id} className="nft-card compact">
+                  <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
+                  <p className="nft-price">${(metadata.priceUsd / 100).toFixed(2)} USD</p>
+                  <p className="nft-reward">🎁 {metadata.gccReward} GCC FREE</p>
+                  <button
+                    className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
+                    onClick={() => setSelectedTokenId(id)}
+                  >
+                    {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
+                  </button>
+                </div>
+              );
+            })}
         </div>
-      )}
+
+        <div className="button-group">
+          <button
+            className="button primary"
+            disabled={selectedTokenId === null || availability[selectedTokenId] === false}
+            onClick={handleBuyNFT}
+          >
+            💳 Buy Selected NFT
+          </button>
+          <button className="button secondary" onClick={handleLogout}>
+            Log out
+          </button>
+          <Link to="/wallet">
+            <button className="button secondary">🔍 View My Wallet</button>
+          </Link>
+        </div>
+
+        {purchased && (
+          <div className="button-group">
+            <h3>🎁 You have purchased your NFT. Now you can claim it:</h3>
+            {Object.keys(availability).map((id) => (
+              <button
+                key={id}
+                className="button primary"
+                onClick={() => handleSendNFT(Number(id))}
+                disabled={!purchased || availability[id] === false}
+              >
+                Send NFT #{id}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
