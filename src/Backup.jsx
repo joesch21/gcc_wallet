@@ -28,11 +28,13 @@ export default function Backup() {
 
   return (
     <div className="backup-wrapper">
-      <div className="backup-container">
+      <div className="backup-box">
         <h2>🔐 Backup Your Wallet</h2>
         <p>
-          This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.
+          This is your seed phrase. Store it somewhere{' '}
+          <strong>safe and offline</strong>.
         </p>
+
         <div className="mnemonic-box">{mnemonic}</div>
 
         <label className="checkbox-label">
@@ -49,7 +51,6 @@ export default function Backup() {
           className="button primary"
           onClick={handleAcknowledge}
           disabled={!acknowledged}
-          style={{ marginTop: '1.5rem' }}
         >
           Continue to Membership
         </button>
