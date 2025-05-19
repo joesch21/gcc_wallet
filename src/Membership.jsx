@@ -103,7 +103,7 @@ export default function Membership() {
 
   const handleBuyNFT = async () => {
     try {
-      const result = await stripeCheckout(wallet, selectedTokenId);
+      const result = await stripeCheckout(wallet, selectedTokenId); // ✅ uses correct `wallet` param
       window.location.href = result.url;
     } catch (err) {
       console.error('❌ Checkout failed:', err);
