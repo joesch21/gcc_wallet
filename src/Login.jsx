@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -15,28 +15,8 @@ export default function Login() {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  // Load reCAPTCHA script on mount
-  useEffect(() => {
-    const loadRecaptcha = () => {
-      if (!window.grecaptcha) {
-        const script = document.createElement('script');
-        script.src = 'https://www.google.com/recaptcha/api.js';
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-      }
-    };
-    loadRecaptcha();
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const captchaToken = window.grecaptcha?.getResponse();
-    if (isRegister && !captchaToken) {
-      setStatus('⚠️ Please complete the CAPTCHA first.');
-      return;
-    }
 
     setStatus(isRegister ? 'Creating your crypto identity...' : 'Logging in...');
 
@@ -64,10 +44,8 @@ export default function Login() {
       if (isRegister) {
         result = await createWalletFromBackend(token);
       } else {
-        result = { address: userCredential.user.uid }; // You can load wallet info separately later
+        result = { address: userCredential.user.uid };
       }
-
-      window.grecaptcha.reset(); // Always reset CAPTCHA after attempt
 
       if (result.mnemonic) {
         navigate('/backup', { state: { wallet: result.address, mnemonic: result.mnemonic } });
@@ -76,7 +54,6 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-      window.grecaptcha.reset();
 
       switch (err.code) {
         case 'auth/user-not-found':
@@ -128,13 +105,6 @@ export default function Login() {
           autoComplete={isRegister ? 'new-password' : 'current-password'}
           required
         />
-
-        {isRegister && (
-          <div
-            className="g-recaptcha"
-            data-sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          />
-        )}
 
         <button type="submit" className="button primary">
           {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
