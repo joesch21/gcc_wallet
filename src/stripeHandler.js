@@ -1,4 +1,3 @@
-// File: stripeHandler.js
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const stripeCheckout = async (wallet, tokenId) => {
@@ -11,7 +10,7 @@ export const stripeCheckout = async (wallet, tokenId) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ wallet, tokenId }), // ✅ Correct key here
+    body: JSON.stringify({ wallet, tokenId }),
   });
 
   if (!response.ok) {
