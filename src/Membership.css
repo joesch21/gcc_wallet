@@ -12,14 +12,15 @@ html, body {
 }
 
 .membership-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.85);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+
 
 .membership-container h1 {
   font-size: 1.75rem;
@@ -222,8 +223,7 @@ input[type="text"] {
   min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  display: flex;
-  justify-content: center;
+  display: block;
   align-items: flex-start;
   padding: 2rem 1rem;
   box-sizing: border-box;
@@ -277,9 +277,10 @@ input[type="text"] {
   }
 
   .nft-image {
-  border-radius: 6px;
-  margin-bottom: 0.4rem;
+  max-height: 280px;
+  object-fit: contain;
 }
+
 
 
   .nft-price,
