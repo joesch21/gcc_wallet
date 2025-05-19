@@ -4,15 +4,7 @@ import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
 import './Membership.css';
 import { stripeCheckout } from './stripeHandler';
-
-const nftMetadata = {
-  1: { priceUsd: 600, gccReward: 100 },
-  2: { priceUsd: 600, gccReward: 100 },
-  3: { priceUsd: 2400, gccReward: 400 },
-  4: { priceUsd: 2400, gccReward: 400 },
-  5: { priceUsd: 6000, gccReward: 1000 },
-  6: { priceUsd: 6000, gccReward: 1000 },
-};
+import NFTSelector from './NFTSelector';
 
 export default function Membership() {
   const location = useLocation();
@@ -103,7 +95,7 @@ export default function Membership() {
 
   const handleBuyNFT = async () => {
     try {
-      const result = await stripeCheckout(wallet, selectedTokenId); // ✅ uses correct `wallet` param
+      const result = await stripeCheckout(wallet, selectedTokenId);
       window.location.href = result.url;
     } catch (err) {
       console.error('❌ Checkout failed:', err);
@@ -127,27 +119,11 @@ export default function Membership() {
 
         <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
 
-        <div className="nft-carousel">
-          {Object.entries(availability)
-            .filter(([, isAvailable]) => isAvailable)
-            .map(([id]) => {
-              id = Number(id);
-              const metadata = nftMetadata[id] || {};
-              return (
-                <div key={id} className="nft-card compact">
-                  <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
-                  <p className="nft-price">${(metadata.priceUsd / 100).toFixed(2)} USD</p>
-                  <p className="nft-reward">🎁 {metadata.gccReward} GCC FREE</p>
-                  <button
-                    className={`button ${selectedTokenId === id ? 'primary' : 'secondary'}`}
-                    onClick={() => setSelectedTokenId(id)}
-                  >
-                    {selectedTokenId === id ? 'Selected' : `Select NFT #${id}`}
-                  </button>
-                </div>
-              );
-            })}
-        </div>
+        <NFTSelector
+          availability={availability}
+          selectedTokenId={selectedTokenId}
+          setSelectedTokenId={setSelectedTokenId}
+        />
 
         <div className="button-group">
           <button

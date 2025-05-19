@@ -1,0 +1,88 @@
+/* === NFTSelector.css (extracted from Membership.css) === */
+
+/* === NFT Carousel === */
+.nft-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  gap: 1rem;
+  padding: 1rem 0;
+  justify-content: center;
+}
+
+.nft-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.nft-carousel::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 3px;
+}
+
+/* === NFT Cards === */
+.nft-card {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 280px;
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+}
+
+.nft-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+.nft-reward {
+  font-weight: bold;
+  color: #007b00;
+  font-size: 0.9rem;
+}
+
+.nft-price {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* === Responsive Optimizations for NFT Selector === */
+@media screen and (max-width: 480px) {
+  .nft-carousel {
+    padding: 0 0.5rem;
+    scroll-padding: 0 0.5rem;
+    gap: 1rem;
+    justify-content: flex-start;
+  }
+
+  .nft-card {
+    flex: 0 0 88vw;
+    max-width: 260px;
+    margin: 0 auto;
+    scroll-snap-align: right;
+    padding: 0.7rem; /* tighter internal spacing */
+  }
+
+  .nft-image {
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+  }
+
+  .nft-price,
+  .nft-reward {
+    font-size: 0.85rem;
+  }
+}
