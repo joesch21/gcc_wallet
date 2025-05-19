@@ -27,31 +27,33 @@ export default function Backup() {
   }
 
   return (
-    <div className="backup-container">
-      <h2>🔐 Backup Your Wallet</h2>
-      <p>
-        This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.
-      </p>
-      <div className="mnemonic-box">{mnemonic}</div>
+    <div className="backup-wrapper">
+      <div className="backup-container">
+        <h2>🔐 Backup Your Wallet</h2>
+        <p>
+          This is your seed phrase. Store it somewhere <strong>safe and offline</strong>.
+        </p>
+        <div className="mnemonic-box">{mnemonic}</div>
 
-      <label className="checkbox-label">
-        <input
-          type="checkbox"
-          id="acknowledge"
-          onChange={(e) => setAcknowledged(e.target.checked)}
-        />
-        I understand this is the <strong>only way</strong> to recover my wallet.
-      </label>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            id="acknowledge"
+            onChange={(e) => setAcknowledged(e.target.checked)}
+          />
+          I understand this is the <strong>only way</strong> to recover my wallet.
+        </label>
 
-      <button
-        id="continue"
-        className="button primary"
-        onClick={handleAcknowledge}
-        disabled={!acknowledged}
-        style={{ marginTop: '1.5rem' }}
-      >
-        Continue to Membership
-      </button>
+        <button
+          id="continue"
+          className="button primary"
+          onClick={handleAcknowledge}
+          disabled={!acknowledged}
+          style={{ marginTop: '1.5rem' }}
+        >
+          Continue to Membership
+        </button>
+      </div>
     </div>
   );
 }
