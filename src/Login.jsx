@@ -89,13 +89,13 @@ export default function Login() {
       {/* Side / Slide-Out Navbar */}
       <nav className={`navbar ${mobileMenuOpen ? 'open' : ''}`}>
         <a href="#home" onClick={closeMobileMenu}>Home</a>
-        <a href="about.html" onClick={closeMobileMenu}>About</a>
+        <a href="https://www.gcc-bsc.online/about.html" onClick={closeMobileMenu}>About</a>
         <a href="https://GIMPS.XYZ" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>PROJECT GIMP</a>
         <a href="https://bnb-gcc-apelp.onrender.com/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Stake LP</a>
         <a href="https://gcc-staking.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Stake NFT</a>
         <a href="https://www.gimpnftgallery.com/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Marketplace</a>
         <a href="mailto:GoldCondorCapital@hotmail.com" onClick={closeMobileMenu}>Contact</a>
-        <a href="Nft_voting_proposal.html" onClick={closeMobileMenu}>Proposals</a>
+        <a href="https://www.gcc-bsc.online/Nft_voting_proposal.html" onClick={closeMobileMenu}>Proposals</a>
       </nav>
 
       {/* Main Content */}
