@@ -17,6 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   useEffect(() => {
     const closeOnResize = () => setMobileMenuOpen(false);
@@ -80,24 +81,24 @@ export default function Login() {
 
   return (
     <>
-      {/* Toggle button for mobile */}
+      {/* Mobile Toggle Button */}
       <button className="navbar-toggle" onClick={toggleMobileMenu}>
         ☰
       </button>
 
-      {/* Side-tab / slide-out navbar */}
+      {/* Side / Slide-Out Navbar */}
       <nav className={`navbar ${mobileMenuOpen ? 'open' : ''}`}>
-        <a href="#home">Home</a>
-        <a href="about.html">About</a>
-        <a href="https://GIMPS.XYZ" target="_blank" rel="noopener noreferrer">PROJECT GIMP</a>
-        <a href="https://bnb-gcc-apelp.onrender.com/" target="_blank" rel="noopener noreferrer">Stake LP</a>
-        <a href="https://gcc-staking.vercel.app/" target="_blank" rel="noopener noreferrer">Stake NFT</a>
-        <a href="https://www.gimpnftgallery.com/" target="_blank" rel="noopener noreferrer">Marketplace</a>
-        <a href="mailto:GoldCondorCapital@hotmail.com">Contact</a>
-        <a href="Nft_voting_proposal.html">Proposals</a>
+        <a href="#home" onClick={closeMobileMenu}>Home</a>
+        <a href="about.html" onClick={closeMobileMenu}>About</a>
+        <a href="https://GIMPS.XYZ" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>PROJECT GIMP</a>
+        <a href="https://bnb-gcc-apelp.onrender.com/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Stake LP</a>
+        <a href="https://gcc-staking.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Stake NFT</a>
+        <a href="https://www.gimpnftgallery.com/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Marketplace</a>
+        <a href="mailto:GoldCondorCapital@hotmail.com" onClick={closeMobileMenu}>Contact</a>
+        <a href="Nft_voting_proposal.html" onClick={closeMobileMenu}>Proposals</a>
       </nav>
 
-      {/* Main login content */}
+      {/* Main Content */}
       <div className="login-container">
         <h1 className="login-title">
           <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
@@ -107,20 +108,20 @@ export default function Login() {
         <div className="info-box">
           <strong>Welcome to the GCC Ecosystem</strong>
           <p className="info-description">
-            GCC is a digital commodity powered by AI-managed trading, NFT collectibles, and staking rewards.
+            GCC is a digital commodity — home to unique NFT collectibles and membership rewards.
           </p>
           <ul>
             <li>🔐 Create a self-custodial wallet</li>
-            <li>🎁 Receive 100 GCC tokens</li>
-            <li>🎫 Get your Membership NFT</li>
-            <li>🎮 Join our gamified journey to collect, stake, and vote</li>
+            <li>🎫 Buy a collectible NFT</li>
+            <li>🎁 Get free GCC with every collectible purchased</li>
+            <li>🎮 Coming soon: join our gamified journey to collect, stake, and vote</li>
           </ul>
         </div>
 
         <p className="subtext">
           {isRegister
-            ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
-            : 'Create a wallet to buy NFTs, and unlock premium GCC features.'}
+            ? 'Create your crypto wallet in seconds. Purchase a collectible NFT and receive 100 free GCC tokens.'
+            : 'Don’t have a wallet yet? Create one here — but REMEMBER to save your recovery phrase. No refunds. No replacements!'}
         </p>
 
         <form onSubmit={handleSubmit}>
