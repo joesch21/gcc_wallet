@@ -81,8 +81,25 @@ form input:focus {
   border-radius: 4px;
   object-fit: contain;
 }
-/* Navbar - Responsive, Centered, No Cutoff */
+
 /* Side Tab Navbar */
+/* Toggle Button (Mobile) */
+.navbar-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200;
+  font-size: 1.5rem;
+  padding: 0.4rem 0.6rem;
+  border: none;
+  background: #111;
+  color: #FFD700;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+
+/* Slide-out effect */
 .navbar {
   position: fixed;
   top: 50%;
@@ -97,34 +114,31 @@ form input:focus {
   border-bottom-right-radius: 10px;
   z-index: 100;
   box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease-in-out;
 }
 
-.navbar a {
-  display: block;
-  color: #FFD700;
-  background: #111;
-  border: 1px solid #FFD700;
-  border-radius: 6px 0 0 6px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: left;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.navbar a:hover {
-  background-color: #FFD700;
-  color: #111;
-}
-
-/* Responsive: hide navbar if needed */
-@media screen and (max-width: 480px) {
+/* Mobile: Hidden by default, slide in if open */
+@media screen and (max-width: 768px) {
   .navbar {
-    left: -120px; /* Hidden by default, you can add a toggle button */
+    transform: translateX(-100%);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 180px;
+    padding-top: 4rem;
+    border-radius: 0 12px 12px 0;
+    align-items: flex-start;
+  }
+
+  .navbar.open {
+    transform: translateX(0);
+  }
+
+  .navbar-toggle {
+    display: block;
   }
 }
+
 
 
 /* Info Box */

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -13,7 +13,16 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [status, setStatus] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+
+  useEffect(() => {
+    const closeOnResize = () => setMobileMenuOpen(false);
+    window.addEventListener('resize', closeOnResize);
+    return () => window.removeEventListener('resize', closeOnResize);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +80,13 @@ export default function Login() {
 
   return (
     <>
-      <nav className="navbar">
+      {/* Toggle button for mobile */}
+      <button className="navbar-toggle" onClick={toggleMobileMenu}>
+        ☰
+      </button>
+
+      {/* Side-tab / slide-out navbar */}
+      <nav className={`navbar ${mobileMenuOpen ? 'open' : ''}`}>
         <a href="#home">Home</a>
         <a href="about.html">About</a>
         <a href="https://GIMPS.XYZ" target="_blank" rel="noopener noreferrer">PROJECT GIMP</a>
@@ -82,6 +97,7 @@ export default function Login() {
         <a href="Nft_voting_proposal.html">Proposals</a>
       </nav>
 
+      {/* Main login content */}
       <div className="login-container">
         <h1 className="login-title">
           <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
