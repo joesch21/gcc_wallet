@@ -1,0 +1,37 @@
+/* === Cancel.css === */
+
+.cancel-wrapper {
+  min-height: 100vh;
+  background: url('/background.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.cancel-box {
+  background-color: white;
+  color: #111;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.cancel-box h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.cancel-box p {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.status {
+  font-style: italic;
+  color: #555;
+}
