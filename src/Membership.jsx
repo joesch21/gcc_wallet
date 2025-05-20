@@ -117,7 +117,7 @@ export default function Membership() {
         <p>Your wallet address:</p>
         <code className="wallet-address">{wallet}</code>
 
-        <p>You now hold a wallet eligible for the GCC Membership NFT.</p>
+        <p>You now hold a wallet to which your NFT will be sent.</p>
 
         <NFTSelector
           availability={availability}

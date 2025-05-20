@@ -79,13 +79,13 @@ export default function Login() {
     <div className="login-container">
       <h1 className="login-title">
         <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
-        {isRegister ? 'Join the GCC Network' : 'Welcome'}
+        {isRegister ? 'Join the GCC Network' : 'Gold Condor Capital'}
       </h1>
 
       <p className="subtext">
         {isRegister
           ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
-          : 'Log in to manage your wallet, NFTs, and unlock premium GCC features.'}
+          : 'Create a wallet to buy NFTs, and unlock premium GCC features.'}
       </p>
 
       <form onSubmit={handleSubmit}>
