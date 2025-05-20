@@ -17,7 +17,6 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setStatus(isRegister ? 'Creating your crypto identity...' : 'Logging in...');
 
     try {
@@ -39,13 +38,9 @@ export default function Login() {
       }
 
       const token = await userCredential.user.getIdToken();
-
-      let result;
-      if (isRegister) {
-        result = await createWalletFromBackend(token);
-      } else {
-        result = { address: userCredential.user.uid };
-      }
+      let result = isRegister
+        ? await createWalletFromBackend(token)
+        : { address: userCredential.user.uid };
 
       if (result.mnemonic) {
         navigate('/backup', { state: { wallet: result.address, mnemonic: result.mnemonic } });
@@ -54,7 +49,6 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-
       switch (err.code) {
         case 'auth/user-not-found':
           setStatus('⚠️ No account found. Try registering instead.');
@@ -76,48 +70,75 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h1 className="login-title">
-        <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
-        {isRegister ? 'Join the GCC Network' : 'Gold Condor Capital'}
-      </h1>
+    <>
+      {/* Ecosystem Navigation */}
+      <nav className="navbar">
+        <a href="#home">Home</a>
+        <a href="about.html">About</a>
+        <a href="https://GIMPS.XYZ" target="_blank" rel="noopener noreferrer">PROJECT GIMP</a>
+        <a href="https://bnb-gcc-apelp.onrender.com/" target="_blank" rel="noopener noreferrer">Stake LP</a>
+        <a href="https://gcc-staking.vercel.app/" target="_blank" rel="noopener noreferrer">Stake NFT</a>
+        <a href="https://www.gimpnftgallery.com/" target="_blank" rel="noopener noreferrer">Marketplace</a>
+        <a href="mailto:GoldCondorCapital@hotmail.com">Contact</a>
+        <a href="Nft_voting_proposal.html">Proposals</a>
+      </nav>
 
-      <p className="subtext">
-        {isRegister
-          ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
-          : 'Create a wallet to buy NFTs, and unlock premium GCC features.'}
-      </p>
+      {/* Login/Register Container */}
+      <div className="login-container">
+        <h1 className="login-title">
+          <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
+          {isRegister ? 'Join the GCC Network' : 'Gold Condor Capital'}
+        </h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="📧 Email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoComplete="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="🔒 Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete={isRegister ? 'new-password' : 'current-password'}
-          required
-        />
+        {/* GCC Ecosystem Info */}
+        <div className="info-box">
+          <h2>Welcome to the GCC Ecosystem</h2>
+          <p>GCC is a digital commodity powered by AI-managed trading, NFT collectibles, and staking rewards.</p>
+          <ul>
+            <li>🔐 Create a self-custodial wallet</li>
+            <li>🎁 Receive 100 GCC tokens</li>
+            <li>🎫 Get your Membership NFT</li>
+            <li>🎮 Join our gamified journey to collect, stake, and vote</li>
+          </ul>
+        </div>
 
-        <button type="submit" className="button primary">
-          {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
+        {/* Login/Register Form */}
+        <p className="subtext">
+          {isRegister
+            ? 'Create your crypto wallet in seconds. Receive 100 free GCC tokens and an exclusive Membership NFT.'
+            : 'Create a wallet to buy NFTs, and unlock premium GCC features.'}
+        </p>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="📧 Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
+          />
+          <input
+            type="password"
+            placeholder="🔒 Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete={isRegister ? 'new-password' : 'current-password'}
+            required
+          />
+          <button type="submit" className="button primary">
+            {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
+          </button>
+        </form>
+
+        <button onClick={() => setIsRegister(!isRegister)} className="button secondary">
+          {isRegister
+            ? '← Already have an account? Log in'
+            : '→ New to GCC? Create an account'}
         </button>
-      </form>
 
-      <button onClick={() => setIsRegister(!isRegister)} className="button secondary">
-        {isRegister
-          ? '← Already have an account? Log in'
-          : '→ New to GCC? Create an account'}
-      </button>
-
-      {status && <p className="status-text">{status}</p>}
-    </div>
+        {status && <p className="status-text">{status}</p>}
+      </div>
+    </>
   );
 }
