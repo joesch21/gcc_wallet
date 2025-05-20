@@ -1,5 +1,6 @@
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+// Keep backend call
 export const createWalletFromBackend = async (token) => {
   const response = await fetch(`${backendUrl}/create_wallet`, {
     method: 'POST',
@@ -7,7 +8,6 @@ export const createWalletFromBackend = async (token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({}) // or remove body if your backend doesn't require it
   });
 
   if (!response.ok) {
@@ -17,3 +17,4 @@ export const createWalletFromBackend = async (token) => {
 
   return await response.json();
 };
+
