@@ -26,7 +26,13 @@ const CondorGPT = () => {
   const [input, setInput] = useState('');
   const [showFAQ, setShowFAQ] = useState(false);
 
-  const toggleChat = () => setVisible(!visible);
+  const toggleChat = () => {
+    setVisible(!visible);
+    if (!visible) {
+      // Add welcome message only when opening
+      setMessages(prev => [...prev, { role: 'assistant', content: "Hello Condarian! How is your day going?" }]);
+    }
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return;
