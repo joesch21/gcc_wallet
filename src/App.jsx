@@ -5,7 +5,7 @@ import Success from './Success'
 import Cancel from './Cancel'
 import Membership from './Membership'
 import WalletOverview from './WalletOverview'
-import CondorGPT from './components/CondorGPT' // ✅ Import the assistant
+import CondorGPT from './CondorGPT'
 import './App.css'
 
 export default function App() {

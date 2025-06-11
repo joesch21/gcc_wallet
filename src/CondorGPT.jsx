@@ -1,6 +1,6 @@
-// src/components/CondorGPT.jsx
+// src/CondorGPT.jsx
 import React, { useState } from 'react';
-import './CondorGPT.css'; // Optional styling
+import './CondorGPT.css';
 
 const CondorGPT = () => {
   const [visible, setVisible] = useState(false);
