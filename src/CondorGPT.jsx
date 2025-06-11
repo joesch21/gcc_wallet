@@ -4,11 +4,15 @@ import './CondorGPT.css';
 const faq = [
   {
     q: "What is Gold Condor Capital (GCC)?",
-    a: "GCC is a digital commodity fund with locked token liquidity until 2030. It gains value through adoption, reflection rewards, a burn mechanism, and income from trading strategies like options and lending."
+    a: "GCC is a digital commodity fund backed by smart contract tokenomics. It features locked liquidity until 2030, ensuring long-term stability. GCC accrues value through adoption, token burn, reflections (passive income), and income streams from lending, borrowing, options trading, and AI-enhanced market activity."
   },
   {
-    q: "What happens when I buy an NFT?",
-    a: "You receive a free airdrop of GCC tokens along with your NFT. This bundles utility with your digital collectible."
+    q: "Is GCC a cryptocurrency?",
+    a: "Yes, but more specifically, it is a digital commodity token. Unlike typical cryptocurrencies, GCC is structured as a long-term store of value with embedded financial mechanisms like burns, reflections, and locked liquidity to support value appreciation."
+  },
+  {
+    q: "How do I buy GCC?",
+    a: "You can receive GCC for free when purchasing a Membership NFT via the GCC website. The NFT comes with an airdrop of GCC tokens sent directly to your crypto wallet."
   },
   {
     q: "What is a wallet?",
@@ -17,6 +21,14 @@ const faq = [
   {
     q: "Why is my seed phrase important?",
     a: "Your seed phrase is the only way to access or recover your wallet. If lost, your assets are unrecoverable. Keep it private and offline."
+  },
+  {
+    q: "What do I get when I purchase a Membership NFT?",
+    a: "You receive a unique NFT and a bundle of GCC tokens airdropped to your wallet. This NFT acts as your access pass and proof of participation in the GCC ecosystem."
+  },
+  {
+    q: "Is GCC backed by anything?",
+    a: "Yes, GCC is backed by smart contract-locked liquidity until 2030 and supported by real yield from options trading and DeFi financial activity."
   }
 ];
 
@@ -29,8 +41,7 @@ const CondorGPT = () => {
   const toggleChat = () => {
     setVisible(!visible);
     if (!visible) {
-      // Add welcome message only when opening
-      setMessages(prev => [...prev, { role: 'assistant', content: "Hello Condarian! How is your day going?" }]);
+      setMessages([{ role: 'assistant', content: "Hello Condarian! How is your day going?" }]);
     }
   };
 
@@ -55,6 +66,19 @@ const CondorGPT = () => {
     }
   };
 
+  const handleSuggestedClick = (suggestion) => {
+    setInput(suggestion);
+    sendMessage();
+  };
+
+  const suggestedQuestions = [
+    "What is GCC?",
+    "How do I buy GCC?",
+    "What is a wallet?",
+    "Why is my seed phrase important?",
+    "What do I get with the Membership NFT?"
+  ];
+
   return (
     <>
       <div onClick={toggleChat} className="chat-toggle">💬</div>
@@ -76,6 +100,12 @@ const CondorGPT = () => {
             </div>
           )}
 
+          <div className="suggested-questions">
+            {suggestedQuestions.map((q, i) => (
+              <button key={i} onClick={() => handleSuggestedClick(q)}>{q}</button>
+            ))}
+          </div>
+
           <div className="chat-messages">
             {messages.map((msg, i) => (
               <div key={i} className={`msg ${msg.role}`}>
@@ -83,6 +113,7 @@ const CondorGPT = () => {
               </div>
             ))}
           </div>
+
           <input
             type="text"
             value={input}
