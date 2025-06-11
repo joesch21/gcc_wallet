@@ -17,7 +17,7 @@ const CondorGPT = () => {
     setInput('');
 
     try {
-      const res = await fetch('/api/condor_chat', {
+      const res = await fetch('https://nftwebhookvercel.onrender.com/api/condor_chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage })
