@@ -1,4 +1,3 @@
-// src/CondorGPT.jsx
 import React, { useState } from 'react';
 import './CondorGPT.css';
 
@@ -17,16 +16,24 @@ const CondorGPT = () => {
     setInput('');
 
     try {
-      const res = await fetch('https://nftwebhookvercel.onrender.com/api/condor_chat', {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/condor_chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage })
       });
+
       const data = await res.json();
+
+      if (data.error) {
+        console.error('❌ GPT backend error:', data);
+        setMessages(prev => [...prev, { role: 'assistant', content: `⚠️ ${data.detail || 'GPT failed to reply.'}` }]);
+        return;
+      }
+
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
     } catch (err) {
-      console.error('Chat error:', err);
-      setMessages(prev => [...prev, { role: 'assistant', content: "⚠️ GPT failed to reply." }]);
+      console.error('❌ Network error:', err);
+      setMessages(prev => [...prev, { role: 'assistant', content: "⚠️ GPT connection error." }]);
     }
   };
 
