@@ -222,3 +222,18 @@ form input:focus {
     padding: 0.6rem 1rem;
   }
 }
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.04), transparent 70%),
+              radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.03), transparent 70%);
+  animation: fogDrift 30s linear infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes fogDrift {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
