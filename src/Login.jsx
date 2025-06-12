@@ -27,7 +27,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus(isRegister ? 'Creating your crypto identity...' : 'Logging in...');
+    setStatus(isRegister ? 'Summoning your sovereign key...' : 'Crossing into the field...');
 
     try {
       let userCredential;
@@ -37,7 +37,7 @@ export default function Login() {
           userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
         } catch (err) {
           if (err.code === 'auth/email-already-in-use') {
-            setStatus('🔁 Email already registered. Logging you in...');
+            setStatus('Email already marked. Re-entering the field...');
             userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
           } else {
             throw err;
@@ -61,16 +61,16 @@ export default function Login() {
       console.error(err);
       switch (err.code) {
         case 'auth/user-not-found':
-          setStatus('⚠️ No account found. Try registering instead.');
+          setStatus('No record in the field. Consider initiating.');
           break;
         case 'auth/wrong-password':
-          setStatus('❌ Incorrect password.');
+          setStatus('🔒 The key does not match.');
           break;
         case 'auth/invalid-email':
-          setStatus('❌ Invalid email address.');
+          setStatus('❌ Not a valid sigil.');
           break;
         case 'auth/invalid-credential':
-          setStatus('❌ Check your email and password.');
+          setStatus('❌ The spell failed. Check sigils.');
           break;
         default:
           setStatus(`❌ ${err.message}`);
@@ -81,12 +81,8 @@ export default function Login() {
 
   return (
     <>
-      {/* Mobile Toggle Button */}
-      <button className="navbar-toggle" onClick={toggleMobileMenu}>
-        ☰
-      </button>
+      <button className="navbar-toggle" onClick={toggleMobileMenu}>☰</button>
 
-      {/* Side / Slide-Out Navbar */}
       <nav className={`navbar ${mobileMenuOpen ? 'open' : ''}`}>
         <a href="#home" onClick={closeMobileMenu}>Home</a>
         <a href="https://www.gcc-bsc.online/about.html" onClick={closeMobileMenu}>About</a>
@@ -98,36 +94,35 @@ export default function Login() {
         <a href="https://www.gcc-bsc.online/Nft_voting_proposal.html" onClick={closeMobileMenu}>Proposals</a>
       </nav>
 
-      {/* Main Content */}
       <div className="login-container">
         <h1 className="login-title">
           <img src="/gcc-logo.png" alt="GCC Logo" className="gcc-logo" />
-          {isRegister ? 'Join the GCC Network' : 'Gold Condor Capital'}
+          {isRegister ? 'Initiate into the Field' : '🔱 Gold Condor Capital'}
         </h1>
 
         <div className="info-box">
-          <strong>Welcome to the GCC Ecosystem</strong>
+          <strong>This isn’t Web3 as usual.</strong>
           <p className="info-description">
-            GCC is a digital commodity — home to unique NFT collectibles and membership rewards.
+            GCC is not a product. It’s a sovereign system. A field of refusal. A ritual of becoming.
           </p>
           <ul>
-            <li>🔐 Create a self-custodial wallet</li>
-            <li>🎫 Buy a collectible NFT</li>
-            <li>🎁 Get free GCC with every collectible purchased</li>
-            <li>🎮 Coming soon: join our gamified journey to collect, stake, and vote</li>
+            <li>🔐 Forge your self-custodial wallet</li>
+            <li>🦴 Claim your first artifact (NFT)</li>
+            <li>💰 Receive GCC tokens upon crossing</li>
+            <li>🔮 Coming soon: rituals of staking, choice, and myth</li>
           </ul>
         </div>
 
         <p className="subtext">
           {isRegister
-            ? 'Create your crypto wallet in seconds. Purchase a collectible NFT and receive 100 free GCC tokens.'
-            : 'Don’t have a wallet yet? Create one here — but REMEMBER to save your recovery phrase. No refunds. No replacements!'}
+            ? 'Forge your key. Mark your entry. Do not lose your sigil — no remints, no rescue.'
+            : 'Already marked? Re-enter the field and continue becoming.'}
         </p>
 
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="📧 Email address"
+            placeholder="📧 Your sigil (email)"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
@@ -135,21 +130,21 @@ export default function Login() {
           />
           <input
             type="password"
-            placeholder="🔒 Password"
+            placeholder="🔒 Your secret key (password)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete={isRegister ? 'new-password' : 'current-password'}
             required
           />
           <button type="submit" className="button primary">
-            {isRegister ? '🚀 Create Wallet' : '🔓 Log In'}
+            {isRegister ? '🌀 Begin Initiation' : '🔓 Enter the Field'}
           </button>
         </form>
 
         <button onClick={() => setIsRegister(!isRegister)} className="button secondary">
           {isRegister
-            ? '← Already have an account? Log in'
-            : '→ New to GCC? Create an account'}
+            ? '← Already initiated? Re-enter'
+            : '→ New to the field? Begin here'}
         </button>
 
         {status && <p className="status-text">{status}</p>}
