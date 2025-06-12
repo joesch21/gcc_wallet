@@ -1,4 +1,4 @@
-/* File: Login.css (Updated Ritual Aesthetic) */
+/* File: Login.css (Updated Ritual Aesthetic with Animated Condor) */
 
 body {
   background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
@@ -6,6 +6,34 @@ body {
   color: #f8f8f8;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+
+/* Condor Animation */
+.condor-container {
+  position: fixed;
+  top: 15%;
+  left: -200px;
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  animation: flyAcross 60s linear infinite;
+  opacity: 0.1;
+}
+
+@keyframes flyAcross {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
+
+.condor-svg {
+  width: 100%;
+  height: 100%;
+  fill: #FFD700;
 }
 
 .login-container {
@@ -17,6 +45,8 @@ body {
   border-radius: 14px;
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .login-container h1 {
@@ -221,19 +251,4 @@ form input:focus {
     font-size: 0.95rem;
     padding: 0.6rem 1rem;
   }
-}
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -1;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.04), transparent 70%),
-              radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.03), transparent 70%);
-  animation: fogDrift 30s linear infinite;
-  background-size: 200% 200%;
-}
-
-@keyframes fogDrift {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
 }

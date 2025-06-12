@@ -93,6 +93,14 @@ export default function Login() {
         <a href="mailto:GoldCondorCapital@hotmail.com" onClick={closeMobileMenu}>Contact</a>
         <a href="https://www.gcc-bsc.online/Nft_voting_proposal.html" onClick={closeMobileMenu}>Proposals</a>
       </nav>
+      
+      <div className="condor-container">
+        <svg className="condor-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 32C10 28 20 26 32 26C44 26 54 28 62 32C54 36 44 38 32 38C20 38 10 36 2 32Z" />
+          <path d="M32 26C35 20 38 12 40 2C42 12 45 20 48 26" />
+          <circle cx="32" cy="32" r="2" />
+        </svg>
+      </div>
 
       <div className="login-container">
         <h1 className="login-title">
