@@ -21,7 +21,7 @@ export default function NFTSelector({ availability, selectedTokenId, setSelected
           const metadata = nftMetadata[id] || {};
           return (
             <div key={id} className="nft-card compact">
-              <img src={`/nft${id}.png`} alt={`NFT Token ${id}`} className="nft-image" />
+              <img src={`/nft${id}.jpeg`} alt={`NFT Token ${id}`} className="nft-image" />
               <p className="nft-price">${(metadata.priceUsd / 100).toFixed(2)} USD</p>
               <p className="nft-reward">🎁 {metadata.gccReward} GCC FREE</p>
               <button
