@@ -1,4 +1,4 @@
-/* === NFTSelector.css (Final Cleaned Version) === */
+/* === NFTSelector.css — Ritual Aesthetic Upgrade === */
 
 /* === NFT Carousel === */
 .nft-carousel {
@@ -11,7 +11,7 @@
   overscroll-behavior-x: contain;
   gap: 1rem;
   padding: 1rem 0;
-  justify-content: flex-start; /* ✅ enable scrolling */
+  justify-content: flex-start;
 }
 
 .nft-carousel::-webkit-scrollbar {
@@ -19,7 +19,7 @@
 }
 
 .nft-carousel::-webkit-scrollbar-thumb {
-  background: #bbb;
+  background: #444;
   border-radius: 4px;
 }
 
@@ -29,14 +29,21 @@
   flex: 0 0 auto;
   width: 90%;
   max-width: 280px;
-  background: #f9f9f9;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #111;
+  padding: 1rem;
+  border: 1px solid #FFD70033;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.1);
   text-align: center;
   position: relative;
   margin: 0;
+  transition: transform 0.3s ease;
+  color: #eee;
+}
+
+.nft-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
 }
 
 .nft-image {
@@ -44,19 +51,22 @@
   height: auto;
   border-radius: 8px;
   margin-bottom: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #444;
 }
 
 .nft-reward {
   font-weight: bold;
-  color: #007b00;
-  font-size: 0.9rem;
+  color: #00ff88;
+  font-size: 0.95rem;
+  text-shadow: 0 0 5px #00ff8866;
 }
 
 .nft-price {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: bold;
   margin-top: 0.25rem;
+  color: #FFD700;
+  text-shadow: 0 0 5px #FFD70066;
 }
 
 /* === Responsive Optimizations === */
@@ -71,8 +81,7 @@
   .nft-card {
     flex: 0 0 88vw;
     max-width: 260px;
-    padding: 0.7rem;
-    scroll-snap-align: start;
+    padding: 0.8rem;
   }
 
   .nft-image {
@@ -82,6 +91,6 @@
 
   .nft-price,
   .nft-reward {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 }
